@@ -9,6 +9,11 @@
 
 #include <moveit_visual_tools/moveit_visual_tools.h>
 
+// für trajectory
+#include <ros/ros.h>
+#include <moveit/planning_scene/planning_scene.h>
+#include <moveit/trajectory_processing/iterative_time_parameterization.h>
+
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "moving_ur3");
@@ -50,7 +55,9 @@ int main(int argc, char **argv)
     // Getting Basic Information
     // ^^^^^^^^^^^^^^^^^^^^^^^^^
     //
-    ROS_INFO_NAMED("tutorial", " ----------- Getting Basic Information -----------");
+    // ROS_INFO_NAMED("tutorial", " ----------- Getting Basic Information -----------");
+    std::cout << "\n----------- Getting Basic Information -----------\n"
+              << std::endl;
 
     // printing name of the reference frame for this robot.
     ROS_INFO_NAMED("tutorial", "Planning frame: %s", move_group_interface.getPlanningFrame().c_str());
@@ -97,13 +104,13 @@ int main(int argc, char **argv)
     // visual_tools.publishTrajectoryLine(my_plan.trajectory_, joint_model_group); // --> wie im tutorial, funktioniert aber nicht !!!
     // visual_tools.publishTrajectoryPath(my_plan.trajectory_, my_plan.start_state_); // möglich lösung falls die trajectory verschoben ist
     visual_tools.trigger();
-    visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to continue the demo");
+    visual_tools.prompt("Press 'next' to execute planned path");
 
     // -------------------------- EXECUTING PLAN --------------------------
 
     // Finally, to execute the trajectory stored in my_plan, you could use the following method call:
     // Note that this can lead to problems if the robot moved in the meanwhile.
-    // move_group_interface.execute(my_plan);
+    move_group_interface.execute(my_plan);
 
     // -------------------------- END: EXECUTING PLAN --------------------------
 
@@ -120,6 +127,9 @@ int main(int argc, char **argv)
     // move_group_interface.move();
 
     // -------------------------- END: PLAN & EXECUTING --------------------------
+
+    visual_tools.trigger();
+    visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to continue the demo");
 
     // =================================================================================================================================
 
@@ -138,15 +148,15 @@ int main(int argc, char **argv)
 
     // Now, let's modify one of the joints, plan to the new joint space goal and visualize the plan.
     const double tau = 2 * M_PI;
-    joint_group_positions[0] = -tau / 6; // -1/6 turn in radians // [0] --> weil man einfach den ersten joint nimmt
+    joint_group_positions[0] = -tau / 3; // -1/3 turn in radians // [0] --> weil man einfach den ersten joint nimmt
     move_group_interface.setJointValueTarget(joint_group_positions);
 
     // We lower the allowed maximum velocity and acceleration to 5% of their maximum.
     // The default values are 10% (0.1).
     // Set your preferred defaults in the joint_limits.yaml file of your robot's moveit_config
     // or set explicit factors in your code if you need your robot to move faster.
-    move_group_interface.setMaxVelocityScalingFactor(0.01);
-    move_group_interface.setMaxAccelerationScalingFactor(0.01);
+    move_group_interface.setMaxVelocityScalingFactor(0.05);
+    move_group_interface.setMaxAccelerationScalingFactor(0.05);
 
     success = (move_group_interface.plan(my_plan) == moveit::core::MoveItErrorCode::SUCCESS);
     ROS_INFO_NAMED("tutorial", "Visualizing plan 2 (joint space goal) %s", success ? "" : "FAILED");
@@ -157,9 +167,55 @@ int main(int argc, char **argv)
     visual_tools.publishTrajectoryLine(my_plan.trajectory_, joint_model_group->getLinkModel("tool0"), joint_model_group, rvt::LIME_GREEN);
     // visual_tools.publishTrajectoryLine(my_plan.trajectory_, joint_model_group);
     visual_tools.trigger();
+    visual_tools.prompt("Press 'next' to execute planned path");
+
+    // -------------------------- EXECUTING PLAN --------------------------
+
+    move_group_interface.execute(my_plan);
+
+    visual_tools.trigger();
     visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to continue the demo");
 
     // =================================================================================================================================
+
+    // Planning path to the start Pose
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //
+    // We can plan a motion for this group to a desired pose for the end-effector.
+    geometry_msgs::Pose start_pose_helper;
+    start_pose_helper.orientation.w = 1.0;
+    start_pose_helper.position.x = 0.35;
+    start_pose_helper.position.y = -0.05;
+    start_pose_helper.position.z = 0.6;
+    move_group_interface.setPoseTarget(start_pose_helper);
+
+    // call Planner to compute the plan and visualizing it
+    // No actual movement of the move_group_interface
+    success = (move_group_interface.plan(my_plan) == moveit::core::MoveItErrorCode::SUCCESS);
+    ROS_INFO_NAMED("tutorial", "Visualizing plan to start pose %s", success ? "" : "FAILED");
+
+    // Visualizing plans
+    // ^^^^^^^^^^^^^^^^^
+    //
+    // We can also visualize the plan as a line with markers in RViz.
+    ROS_INFO_NAMED("tutorial", "Visualizing plan to start pose as trajectory line");
+    visual_tools.deleteAllMarkers();
+    visual_tools.publishAxisLabeled(start_pose_helper, "start pose");
+    visual_tools.publishText(text_pose, "Start Pose Goal", rvt::WHITE, rvt::XLARGE);
+    visual_tools.publishTrajectoryLine(my_plan.trajectory_, joint_model_group->getLinkModel("tool0"), joint_model_group, rvt::LIME_GREEN);
+    visual_tools.trigger();
+    visual_tools.prompt("Press 'next' to execute planned path and go to start pose");
+
+    // -------------------------- EXECUTING PLAN --------------------------
+
+    // Finally, to execute the trajectory stored in my_plan, you could use the following method call:
+    // Note that this can lead to problems if the robot moved in the meanwhile.
+    move_group_interface.execute(my_plan);
+
+    visual_tools.trigger();
+    visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to continue the demo");
+
+    // -------------------------- END: EXECUTING PLAN --------------------------
 
     // Planning with Path Constraints
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -227,12 +283,67 @@ int main(int argc, char **argv)
     visual_tools.publishTrajectoryLine(my_plan.trajectory_, joint_model_group->getLinkModel("tool0"), joint_model_group, rvt::LIME_GREEN);
     // visual_tools.publishTrajectoryLine(my_plan.trajectory_, joint_model_group);
     visual_tools.trigger();
-    visual_tools.prompt("next step");
+    visual_tools.prompt("Press 'next' to execute planned path");
+
+    // -------------------------- EXECUTING PLAN --------------------------
+
+    move_group_interface.execute(my_plan);
+
+    visual_tools.trigger();
+    visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to continue the demo");
 
     // When done with the path constraint be sure to clear it.
     move_group_interface.clearPathConstraints();
 
     // =================================================================================================================================
+
+    // Planning path to the start Pose
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //
+    // We can plan a motion for this group to a desired pose for the end-effector.
+    //geometry_msgs::Pose start_pose_helper_2;
+    //start_pose_helper.orientation.w = 1.0;
+    //start_pose_helper.position.x = 0.35;
+    //start_pose_helper.position.y = -0.05;
+    //start_pose_helper.position.z = 0.6;
+    move_group_interface.setStartStateToCurrentState(); // <-- wichtig nach .clearPathConstrains()
+    move_group_interface.setPoseTarget(start_pose2);
+
+    // call Planner to compute the plan and visualizing it
+    // No actual movement of the move_group_interface
+    success = (move_group_interface.plan(my_plan) == moveit::core::MoveItErrorCode::SUCCESS);
+    ROS_INFO_NAMED("tutorial", "Visualizing plan to start pose %s", success ? "" : "FAILED");
+
+    // Visualizing plans
+    // ^^^^^^^^^^^^^^^^^
+    //
+    // We can also visualize the plan as a line with markers in RViz.
+    ROS_INFO_NAMED("tutorial", "Visualizing plan to start pose as trajectory line");
+    visual_tools.deleteAllMarkers();
+    visual_tools.publishAxisLabeled(start_pose2, "start pose");
+    visual_tools.publishText(text_pose, "Start Pose Goal", rvt::WHITE, rvt::XLARGE);
+    visual_tools.publishTrajectoryLine(my_plan.trajectory_, joint_model_group->getLinkModel("tool0"), joint_model_group, rvt::LIME_GREEN);
+    visual_tools.trigger();
+    visual_tools.prompt("Press 'next' to execute planned path and go to start pose");
+
+    // -------------------------- EXECUTING PLAN --------------------------
+
+    // Finally, to execute the trajectory stored in my_plan, you could use the following method call:
+    // Note that this can lead to problems if the robot moved in the meanwhile.
+    move_group_interface.execute(my_plan);
+
+    visual_tools.trigger();
+    visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to continue the demo");
+
+    // -------------------------- END: EXECUTING PLAN --------------------------
+
+    // ------------- moving to start pose -------------
+
+    //visual_tools.deleteAllMarkers();
+    //move_group_interface.setPoseTarget(start_pose2);
+    //move_group_interface.move();
+
+    // ------------- END: moving to start pose -------------
 
     // Cartesian Paths
     // ^^^^^^^^^^^^^^^
@@ -261,21 +372,82 @@ int main(int argc, char **argv)
     // translation.  We will specify the jump threshold as 0.0, effectively disabling it.
     // Warning - disabling the jump threshold while operating real hardware can cause
     // large unpredictable motions of redundant joints and could be a safety issue
+
     moveit_msgs::RobotTrajectory trajectory;
     const double jump_threshold = 0.0;
     const double eef_step = 0.01;
     double fraction = move_group_interface.computeCartesianPath(waypoints, eef_step, jump_threshold, trajectory);
     ROS_INFO_NAMED("tutorial", "Visualizing plan 4 (Cartesian path) (%.2f%% achieved)", fraction * 100.0);
 
+    // The trajectory needs to be modified so it will include velocities as well.
+    // First to create a RobotTrajectory object
+    robot_trajectory::RobotTrajectory rt(move_group_interface.getCurrentState()->getRobotModel(), PLANNING_GROUP);
+
+    // Second get a RobotTrajectory from trajectory
+    rt.setRobotTrajectoryMsg(*move_group_interface.getCurrentState(), trajectory);
+
+    // Thrid create a IterativeParabolicTimeParameterization object
+    trajectory_processing::IterativeParabolicTimeParameterization iptp;
+
+    // Fourth compute computeTimeStamps
+    bool timing_success = iptp.computeTimeStamps(rt);
+    ROS_INFO("Computed time stamp %s", timing_success ? "SUCCEDED" : "FAILED");
+
+    // Get RobotTrajectory_msg from RobotTrajectory
+    rt.getRobotTrajectoryMsg(trajectory);
+
+    /*
+        moveit_msgs::RobotTrajectory trajectory;
+        const double eef_step = 0.01;
+        double time = 0.0; // Startzeitpunkt
+
+        for (size_t i = 0; i < waypoints.size(); ++i)
+        {
+            trajectory_msgs::JointTrajectoryPoint trajectory_point;
+            trajectory_point.positions.push_back(waypoints[i].position.x);
+            trajectory_point.positions.push_back(waypoints[i].position.y);
+            trajectory_point.positions.push_back(waypoints[i].position.z);
+            trajectory_point.time_from_start = ros::Duration(time);
+            trajectory.joint_trajectory.points.push_back(trajectory_point);
+            time += 1.0; // Inkrementieren Sie die Zeit für jeden Punkt um 1 Sekunde
+        }
+
+        ROS_INFO_NAMED("tutorial", "Visualizing plan 4 (Cartesian path)");
+    */
     // Visualize the plan in RViz
     visual_tools.deleteAllMarkers();
     visual_tools.publishText(text_pose, "Cartesian Path", rvt::WHITE, rvt::XLARGE);
-    visual_tools.publishTrajectoryLine(trajectory, joint_model_group);////////////////////////////////////////////////
+    visual_tools.publishTrajectoryLine(trajectory, joint_model_group); ////////////////////////////////////////////////
     visual_tools.publishPath(waypoints, rvt::LIME_GREEN, rvt::SMALL);
     for (std::size_t i = 0; i < waypoints.size(); ++i)
         visual_tools.publishAxisLabeled(waypoints[i], "pt" + std::to_string(i), rvt::SMALL);
     visual_tools.trigger();
-    visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to continue the demo");
+    visual_tools.prompt("Press 'next' to execute trajectory");
+
+    // -------------------------- EXECUTING TRAJECTORY --------------------------
+    /*
+        // timing waypoints of trajectory
+        ros::Time current_time = ros::Time::now();
+
+        for (size_t i = 0; i < waypoints.size(); ++i)
+        {
+            trajectory.joint_trajectory.points[i].time_from_start = ros::Duration(i * eef_step); // Annehmen, dass eef_step die Zeitspanne zwischen den Wegpunkten ist
+            trajectory.joint_trajectory.header.stamp = current_time;
+            current_time += ros::Duration(eef_step);
+        }
+
+        // checken ob die zeiten richtig gesetzt worden sind
+        trajectory_processing::IterativeParabolicTimeParameterization time_param;
+        bool timing_success = time_param.computeTimeStamps(trajectory);
+        if (timing_success)
+        {
+            ROS_INFO("Time stamps computed successfully");
+        }
+        else
+        {
+            ROS_ERROR("Failed to compute time stamps for trajectory");
+        }
+    */
 
     // Cartesian motions should often be slow, e.g. when approaching objects. The speed of cartesian
     // plans cannot currently be set through the maxVelocityScalingFactor, but requires you to time
@@ -284,6 +456,11 @@ int main(int argc, char **argv)
     //
     // You can execute a trajectory like this:
     // move_group_interface.execute(trajectory);
+    my_plan.trajectory_ = trajectory;
+    move_group_interface.execute(my_plan);
+
+    visual_tools.trigger();
+    visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to continue the demo");
 
     // =================================================================================================================================
 
