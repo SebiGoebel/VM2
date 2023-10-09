@@ -301,11 +301,11 @@ int main(int argc, char **argv)
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     //
     // We can plan a motion for this group to a desired pose for the end-effector.
-    //geometry_msgs::Pose start_pose_helper_2;
-    //start_pose_helper.orientation.w = 1.0;
-    //start_pose_helper.position.x = 0.35;
-    //start_pose_helper.position.y = -0.05;
-    //start_pose_helper.position.z = 0.6;
+    // geometry_msgs::Pose start_pose_helper_2;
+    // start_pose_helper.orientation.w = 1.0;
+    // start_pose_helper.position.x = 0.35;
+    // start_pose_helper.position.y = -0.05;
+    // start_pose_helper.position.z = 0.6;
     move_group_interface.setStartStateToCurrentState(); // <-- wichtig nach .clearPathConstrains()
     move_group_interface.setPoseTarget(start_pose2);
 
@@ -339,9 +339,9 @@ int main(int argc, char **argv)
 
     // ------------- moving to start pose -------------
 
-    //visual_tools.deleteAllMarkers();
-    //move_group_interface.setPoseTarget(start_pose2);
-    //move_group_interface.move();
+    // visual_tools.deleteAllMarkers();
+    // move_group_interface.setPoseTarget(start_pose2);
+    // move_group_interface.move();
 
     // ------------- END: moving to start pose -------------
 
@@ -378,46 +378,28 @@ int main(int argc, char **argv)
     const double eef_step = 0.01;
     double fraction = move_group_interface.computeCartesianPath(waypoints, eef_step, jump_threshold, trajectory);
     ROS_INFO_NAMED("tutorial", "Visualizing plan 4 (Cartesian path) (%.2f%% achieved)", fraction * 100.0);
-
-    // The trajectory needs to be modified so it will include velocities as well.
-    // First to create a RobotTrajectory object
-    robot_trajectory::RobotTrajectory rt(move_group_interface.getCurrentState()->getRobotModel(), PLANNING_GROUP);
-
-    // Second get a RobotTrajectory from trajectory
-    rt.setRobotTrajectoryMsg(*move_group_interface.getCurrentState(), trajectory);
-
-    // Thrid create a IterativeParabolicTimeParameterization object
-    trajectory_processing::IterativeParabolicTimeParameterization iptp;
-
-    // Fourth compute computeTimeStamps
-    bool timing_success = iptp.computeTimeStamps(rt);
-    ROS_INFO("Computed time stamp %s", timing_success ? "SUCCEDED" : "FAILED");
-
-    // Get RobotTrajectory_msg from RobotTrajectory
-    rt.getRobotTrajectoryMsg(trajectory);
-
     /*
-        moveit_msgs::RobotTrajectory trajectory;
-        const double eef_step = 0.01;
-        double time = 0.0; // Startzeitpunkt
+        // The trajectory needs to be modified so it will include velocities as well.
+        // First to create a RobotTrajectory object
+        robot_trajectory::RobotTrajectory rt(move_group_interface.getCurrentState()->getRobotModel(), PLANNING_GROUP);
 
-        for (size_t i = 0; i < waypoints.size(); ++i)
-        {
-            trajectory_msgs::JointTrajectoryPoint trajectory_point;
-            trajectory_point.positions.push_back(waypoints[i].position.x);
-            trajectory_point.positions.push_back(waypoints[i].position.y);
-            trajectory_point.positions.push_back(waypoints[i].position.z);
-            trajectory_point.time_from_start = ros::Duration(time);
-            trajectory.joint_trajectory.points.push_back(trajectory_point);
-            time += 1.0; // Inkrementieren Sie die Zeit für jeden Punkt um 1 Sekunde
-        }
+        // Second get a RobotTrajectory from trajectory
+        rt.setRobotTrajectoryMsg(*move_group_interface.getCurrentState(), trajectory);
 
-        ROS_INFO_NAMED("tutorial", "Visualizing plan 4 (Cartesian path)");
+        // Thrid create a IterativeParabolicTimeParameterization object
+        trajectory_processing::IterativeParabolicTimeParameterization iptp;
+
+        // Fourth compute computeTimeStamps
+        bool timing_success = iptp.computeTimeStamps(rt);
+        ROS_INFO("Computed time stamp %s", timing_success ? "SUCCEDED" : "FAILED");
+
+        // Get RobotTrajectory_msg from RobotTrajectory
+        rt.getRobotTrajectoryMsg(trajectory);
     */
     // Visualize the plan in RViz
     visual_tools.deleteAllMarkers();
     visual_tools.publishText(text_pose, "Cartesian Path", rvt::WHITE, rvt::XLARGE);
-    visual_tools.publishTrajectoryLine(trajectory, joint_model_group); ////////////////////////////////////////////////
+    visual_tools.publishTrajectoryLine(trajectory, joint_model_group);
     visual_tools.publishPath(waypoints, rvt::LIME_GREEN, rvt::SMALL);
     for (std::size_t i = 0; i < waypoints.size(); ++i)
         visual_tools.publishAxisLabeled(waypoints[i], "pt" + std::to_string(i), rvt::SMALL);
@@ -425,29 +407,6 @@ int main(int argc, char **argv)
     visual_tools.prompt("Press 'next' to execute trajectory");
 
     // -------------------------- EXECUTING TRAJECTORY --------------------------
-    /*
-        // timing waypoints of trajectory
-        ros::Time current_time = ros::Time::now();
-
-        for (size_t i = 0; i < waypoints.size(); ++i)
-        {
-            trajectory.joint_trajectory.points[i].time_from_start = ros::Duration(i * eef_step); // Annehmen, dass eef_step die Zeitspanne zwischen den Wegpunkten ist
-            trajectory.joint_trajectory.header.stamp = current_time;
-            current_time += ros::Duration(eef_step);
-        }
-
-        // checken ob die zeiten richtig gesetzt worden sind
-        trajectory_processing::IterativeParabolicTimeParameterization time_param;
-        bool timing_success = time_param.computeTimeStamps(trajectory);
-        if (timing_success)
-        {
-            ROS_INFO("Time stamps computed successfully");
-        }
-        else
-        {
-            ROS_ERROR("Failed to compute time stamps for trajectory");
-        }
-    */
 
     // Cartesian motions should often be slow, e.g. when approaching objects. The speed of cartesian
     // plans cannot currently be set through the maxVelocityScalingFactor, but requires you to time
@@ -455,16 +414,116 @@ int main(int argc, char **argv)
     // Pull requests are welcome.
     //
     // You can execute a trajectory like this:
-    // move_group_interface.execute(trajectory);
-    my_plan.trajectory_ = trajectory;
-    move_group_interface.execute(my_plan);
+    move_group_interface.execute(trajectory);
+    // my_plan.trajectory_ = trajectory;
+    // move_group_interface.execute(my_plan);
 
     visual_tools.trigger();
     visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to continue the demo");
 
     // =================================================================================================================================
 
-    // next: adding objects to the environment
+    // Adding objects to the environment
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //
+    // First let's plan to another simple goal with no objects in the way.
+    move_group_interface.setStartState(*move_group_interface.getCurrentState());
+    geometry_msgs::Pose another_pose;
+    another_pose.orientation.x = 1.0;
+    another_pose.position.x = 0.2;
+    another_pose.position.y = 0.15;
+    another_pose.position.z = 0.25;
+    move_group_interface.setPoseTarget(another_pose);
+
+    success = (move_group_interface.plan(my_plan) == moveit::core::MoveItErrorCode::SUCCESS);
+    ROS_INFO_NAMED("tutorial", "Visualizing plan 5 (with no obstacles) %s", success ? "" : "FAILED");
+
+    visual_tools.deleteAllMarkers();
+    visual_tools.publishAxisLabeled(another_pose, "start pose");
+    visual_tools.publishText(text_pose, "Start Pose", rvt::WHITE, rvt::XLARGE);
+    visual_tools.publishTrajectoryLine(my_plan.trajectory_, joint_model_group->getLinkModel("tool0"), joint_model_group, rvt::LIME_GREEN);
+    visual_tools.trigger();
+    visual_tools.prompt("moving to start pose");
+
+    // -------------------------- EXECUTING PLAN --------------------------
+
+    // Finally, to execute the trajectory stored in my_plan, you could use the following method call:
+    // Note that this can lead to problems if the robot moved in the meanwhile.
+    move_group_interface.execute(my_plan);
+
+    visual_tools.trigger();
+    visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to continue the demo");
+
+    // -------------------------- END: EXECUTING PLAN --------------------------
+
+    // First let's plan to another simple goal with no objects in the way.
+    move_group_interface.setStartState(*move_group_interface.getCurrentState());
+    geometry_msgs::Pose another_goal_pose;
+    another_goal_pose.orientation.x = 1.0;
+    another_goal_pose.position.x = 0.5;
+    another_goal_pose.position.y = 0.0;
+    another_goal_pose.position.z = 0.25;
+    move_group_interface.setPoseTarget(another_goal_pose);
+
+    success = (move_group_interface.plan(my_plan) == moveit::core::MoveItErrorCode::SUCCESS);
+    ROS_INFO_NAMED("tutorial", "Visualizing plan 5 (with no obstacles) %s", success ? "" : "FAILED");
+
+    visual_tools.deleteAllMarkers();
+    visual_tools.publishAxisLabeled(another_goal_pose, "goal pose");
+    visual_tools.publishText(text_pose, "Clear Goal", rvt::WHITE, rvt::XLARGE);
+    visual_tools.publishTrajectoryLine(my_plan.trajectory_, joint_model_group->getLinkModel("tool0"), joint_model_group, rvt::LIME_GREEN);
+    visual_tools.trigger();
+    visual_tools.prompt("next setp");
+
+    // Now let's define a collision object ROS message for the robot to avoid.
+    moveit_msgs::CollisionObject collision_object;
+    collision_object.header.frame_id = move_group_interface.getPlanningFrame();
+
+    // The id of the object is used to identify it.
+    collision_object.id = "box1";
+
+    // Define a box to add to the world.
+    shape_msgs::SolidPrimitive primitive;
+    primitive.type = primitive.BOX;
+    primitive.dimensions.resize(3);
+    primitive.dimensions[primitive.BOX_X] = 0.05;
+    primitive.dimensions[primitive.BOX_Y] = 1.0;
+    primitive.dimensions[primitive.BOX_Z] = 0.3;
+
+    // Define a pose for the box (specified relative to frame_id)
+    geometry_msgs::Pose box_pose;
+    box_pose.orientation.w = 1.0;
+    // box_pose.position.x = 0.5;
+    // box_pose.position.y = 0.0;
+
+    box_pose.position.x = 0.3;
+    box_pose.position.y = 0.0;
+    box_pose.position.z = 0.15;
+
+    collision_object.primitives.push_back(primitive);
+    collision_object.primitive_poses.push_back(box_pose);
+    collision_object.operation = collision_object.ADD;
+
+    std::vector<moveit_msgs::CollisionObject> collision_objects;
+    collision_objects.push_back(collision_object);
+
+    // Now, let's add the collision object into the world
+    // (using a vector that could contain additional objects)
+    ROS_INFO_NAMED("tutorial", "Add an object into the world");
+    planning_scene_interface.addCollisionObjects(collision_objects);
+
+    // Show text in RViz of status and wait for MoveGroup to receive and process the collision object message
+    visual_tools.publishText(text_pose, "Add object", rvt::WHITE, rvt::XLARGE);
+    visual_tools.trigger();
+    visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to once the collision object appears in RViz");
+
+    // Now when we plan a trajectory it will avoid the obstacle
+    success = (move_group_interface.plan(my_plan) == moveit::core::MoveItErrorCode::SUCCESS);
+    ROS_INFO_NAMED("tutorial", "Visualizing plan 6 (pose goal move around cuboid) %s", success ? "" : "FAILED");
+    visual_tools.publishText(text_pose, "Obstacle Goal", rvt::WHITE, rvt::XLARGE);
+    visual_tools.publishTrajectoryLine(my_plan.trajectory_, joint_model_group->getLinkModel("tool0"), joint_model_group, rvt::LIME_GREEN);
+    visual_tools.trigger();
+    visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window once the plan is complete");
 
     return 0;
 }
