@@ -543,7 +543,7 @@ int main(int argc, char **argv)
     object_to_attach.header.frame_id = move_group_interface.getEndEffectorLink();
     geometry_msgs::Pose grab_pose;
     grab_pose.orientation.w = 1.0;
-    grab_pose.position.z = 0.02; // 0.025
+    grab_pose.position.z = 0.025; // 0.025
 
     // First, we add the object to the world (without using a vector)
     object_to_attach.primitives.push_back(cylinder_primitive);

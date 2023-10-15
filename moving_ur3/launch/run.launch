@@ -1,6 +1,6 @@
 <launch>
     <!-- starting Gazebo, spawning in robot, starting controllers -->
-    <include file="$(find ur_gazebo)/launch/ur3_bringup.launch" >
+    <include file="$(find ur_gazebo)/launch/ur3e_bringup.launch" >
         <!-- when gui=false, then gazebo is not shown, resulting in faster start-up time -->
         <arg name="gui" value="false"/>
     </include>
@@ -8,12 +8,12 @@
     <!-- starting move_group -->
     <!-- when sim = true, then using effort controller -->
     <!-- when sim = false, then using position controller -->
-    <include file="$(find ur3_moveit_config)/launch/moveit_planning_execution.launch">
+    <include file="$(find ur3e_moveit_config)/launch/moveit_planning_execution.launch">
         <arg name="sim" value="true"/>
     </include>
     <!-- position controller does not work !!! -->
 
-    <include file="$(find ur3_moveit_config)/launch/moveit_rviz.launch">
+    <include file="$(find ur3e_moveit_config)/launch/moveit_rviz.launch">
         <!-- <arg name="rviz_config" value="$(find moving_ur3)/config/ur3_rviz_config.rviz"/> -->
     </include>
 </launch>
