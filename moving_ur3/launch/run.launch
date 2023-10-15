@@ -14,6 +14,6 @@
     <!-- position controller does not work !!! -->
 
     <include file="$(find ur3e_moveit_config)/launch/moveit_rviz.launch">
-        <!-- <arg name="rviz_config" value="$(find moving_ur3)/config/ur3_rviz_config.rviz"/> -->
+        <arg name="config" value="$(find moving_ur3)/config/ur3_rviz_config.rviz"/>
     </include>
 </launch>
