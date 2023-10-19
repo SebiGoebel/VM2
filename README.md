@@ -10,6 +10,7 @@ https://ros-planning.github.io/moveit_tutorials/doc/move_group_interface/move_gr
 https://github.com/ros-planning/moveit_tutorials/blob/master/doc/move_group_interface/src/move_group_interface_tutorial.cpp
 
 
-IP-Addressen Roboter:
+##IP-Addressen Roboter:
 rechts: 192.168.1.11
+
 links:  192.168.1.10
