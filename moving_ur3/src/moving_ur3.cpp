@@ -602,6 +602,17 @@ int main(int argc, char **argv)
     visual_tools.trigger();
     visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window once the plan is complete");
 
+    // -------------------------- EXECUTING PLAN --------------------------
+
+    // Finally, to execute the trajectory stored in my_plan, you could use the following method call:
+    // Note that this can lead to problems if the robot moved in the meanwhile.
+    move_group_interface.execute(my_plan);
+
+    visual_tools.trigger();
+    visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to continue the demo");
+
+    // -------------------------- END: EXECUTING PLAN --------------------------
+
     // Detaching and Removing Objects
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     //
