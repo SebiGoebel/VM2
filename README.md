@@ -15,3 +15,8 @@ rechts: 192.168.1.11
 
 
 links:  192.168.1.10
+
+
+
+
+sudo apt-get install ros-melodic-rqt-joint-trajectory-controller
