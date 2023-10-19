@@ -1,0 +1,18 @@
+<launch>
+    <!-- starting Gazebo, spawning in robot, starting controllers -->
+    <include file="$(find ur_robot_driver)/launch/ur3e_bringup.launch" >
+        <!-- when gui=false, then gazebo is not shown, resulting in faster start-up time -->
+        <arg name="robot_ip" value="192.168.1.11"/>
+    </include>
+
+    <!-- starting move_group -->
+    <!-- when sim = true, then using effort controller -->
+    <!-- when sim = false, then using position controller -->
+    <include file="$(find ur3e_moveit_config)/launch/moveit_planning_execution.launch">
+    </include>
+    <!-- position controller does not work !!! -->
+
+    <include file="$(find ur3e_moveit_config)/launch/moveit_rviz.launch">
+        <arg name="config" value="$(find moving_ur3)/config/ur3_rviz_config.rviz"/>
+    </include>
+</launch>

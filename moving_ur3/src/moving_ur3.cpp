@@ -356,13 +356,13 @@ int main(int argc, char **argv)
 
     geometry_msgs::Pose target_pose3 = start_pose2;
 
-    target_pose3.position.z -= 0.2;
+    target_pose3.position.z -= 0.1;
     waypoints.push_back(target_pose3); // down
 
     target_pose3.position.y -= 0.2;
     waypoints.push_back(target_pose3); // right
 
-    target_pose3.position.z += 0.2;
+    target_pose3.position.z += 0.1;
     target_pose3.position.y += 0.2;
     target_pose3.position.x -= 0.2;
     waypoints.push_back(target_pose3); // up and left
