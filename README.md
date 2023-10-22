@@ -22,7 +22,7 @@ links:  192.168.1.10
 sudo apt-get install ros-melodic-rqt-joint-trajectory-controller
 
 
-## Starten am echten roboter
+## Starten am echten Roboter auf Ubuntu 20.04 in ROS1
 roslaunch ur_robot_driver ur3e_bringup.launch robot_ip:=192.168.1.11
 
 roslaunch ur3e_moveit_config moveit_planning_execution.launch
