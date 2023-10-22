@@ -32,3 +32,7 @@ roslaunch ur3e_moveit_config moveit_rviz.launch
 
 ## Starten der Simulation auf Ubuntu 22.04 in ROS2
 
+
+```bash
+ros2 run ur_client_library start_ursim.sh -m ur3e
+```
