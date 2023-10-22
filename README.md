@@ -28,3 +28,7 @@ roslaunch ur_robot_driver ur3e_bringup.launch robot_ip:=192.168.1.11
 roslaunch ur3e_moveit_config moveit_planning_execution.launch
 
 roslaunch ur3e_moveit_config moveit_rviz.launch
+
+
+## Starten der Simulation auf Ubuntu 22.04 in ROS2
+
