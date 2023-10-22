@@ -32,7 +32,30 @@ roslaunch ur3e_moveit_config moveit_rviz.launch
 
 ## Starten der Simulation auf Ubuntu 22.04 in ROS2
 
-
+1. UR3e Simulation starten
 ```bash
 ros2 run ur_client_library start_ursim.sh -m ur3e
+```
+
+2. IP Adresse nachschauen mit:
+```bash
+ifconfig
+```
+Step 3 und 4 in PolyScope
+3. IP Adresse eingeben (Installation -> External Control)
+4. IP Adresse berechtigung geben (Run -> URCaps -> External Control)
+5. Treiber starten
+```bash
+ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur3e robot_ip:=192.168.56.101 launch_rviz:=false initial_joint_controller:=joint_trajectory_controller
+```
+
+6. Externes Program im Polyscope mit dem Play-Button starten
+7. Starten von MoveIt
+```bash
+ros2 launch ur_moveit_config ur_moveit.launch.py ur_type:=ur3e launch_rviz:=true
+```
+
+8. Starten der Node
+```bash
+ros2 launch moving_ur3e_ros2 move_ur3e.launch.py
 ```
