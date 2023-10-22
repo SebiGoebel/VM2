@@ -59,3 +59,19 @@ ros2 launch ur_moveit_config ur_moveit.launch.py ur_type:=ur3e launch_rviz:=true
 ```bash
 ros2 launch moving_ur3e_ros2 move_ur3e.launch.py
 ```
+
+
+## Funktionierende Simulation starten auf Ubuntu 22.04 in ROS2
+1. UR3e Simulation starten
+```bash
+ros2 launch moving_ur3e_ros2 bringup_sim.launch.py
+```
+2. Starten von MoveIt
+```bash
+ros2 launch moving_ur3e_ros2 start_moveit_rviz.launch.py
+```
+
+3. Starten der Node
+```bash
+ros2 launch moving_ur3e_ros2 move_ur3e.launch.py
+```
