@@ -1,10 +1,13 @@
 import launch
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, LogInfo
-from launch.substitutions import LaunchConfiguration
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch.actions import IncludeLaunchDescription, TimerAction
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.conditions import UnlessCondition
+from launch.actions import OpaqueFunction
+from launch_ros.substitutions import FindPackageShare
+from launch_ros.actions import Node
 
 import os
 from ament_index_python import get_package_share_directory
@@ -32,6 +35,21 @@ from ament_index_python import get_package_share_directory
 #        ),
 #    ])
 
+#def launch_setup(context, *args, **kwargs):
+#    moving_ur3e_ros2 = LaunchConfiguration("moving_ur3e_ros2")
+#
+#    # rviz with moveit configuration
+#    rviz_config_file = PathJoinSubstitution(
+#        [FindPackageShare(moving_ur3e_ros2), "config", "my_rviz_config.rviz"]
+#    )
+#    rviz_node = Node(
+#        package="rviz",
+#        executable="rviz",
+#        name="rviz2_moveit",
+#        output="log",
+#        arguments=["-d", rviz_config_file],
+#    )
+
 def generate_launch_description():
     return LaunchDescription([
         DeclareLaunchArgument('ur_type', default_value='ur3e'),
@@ -49,3 +67,15 @@ def generate_launch_description():
             }.items(),
         ),
     ])
+
+#        # Define the rviz_node
+#        Node(
+#            package="rviz2",
+#            executable="rviz2",
+#            name="rviz2_moveit",
+#            output="log",
+#            arguments=["-d", PathJoinSubstitution([FindPackageShare('moving_ur3e_ros2'), "config", "my_rviz_config.rviz"])],
+#        ) + [OpaqueFunction(function=launch_setup)])
+
+
+    

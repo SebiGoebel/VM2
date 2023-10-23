@@ -11,6 +11,7 @@ find_package(moveit_ros_planning_interface REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(moveit_visual_tools REQUIRED)
 
+# --- moving ur3e to a given pose ---
 add_executable(moving_ur3e src/moving_ur3e.cpp)
 target_include_directories(moving_ur3e PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -24,6 +25,23 @@ ament_target_dependencies(
 )
 
 install(TARGETS moving_ur3e
+  DESTINATION lib/${PROJECT_NAME})
+
+
+# --- moving ur3e to a given pose with a box ---
+add_executable(moving_ur3e_box src/moving_ur3e_box.cpp)
+target_include_directories(moving_ur3e_box PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+target_compile_features(moving_ur3e_box PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+ament_target_dependencies(
+  moving_ur3e_box
+  "moveit_ros_planning_interface"
+  "moveit_visual_tools"
+  "rclcpp"
+)
+  
+install(TARGETS moving_ur3e_box
   DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)

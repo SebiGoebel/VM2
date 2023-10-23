@@ -83,6 +83,7 @@ int main(int argc, char *argv[])
         return msg;
     }();
     move_group_interface.setPoseTarget(target_pose);
+    moveit_visual_tools.publishAxisLabeled(target_pose, "target_pose");
 
     // RvizVisualToolsGui step
     prompt("Press 'Next' in the RvizVisualToolsGui window to plan");

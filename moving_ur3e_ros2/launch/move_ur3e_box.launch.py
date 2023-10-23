@@ -97,8 +97,8 @@ def generate_launch_description():
     robot_description_semantic = get_robot_description_semantic()
     demo_node = Node(
         package="moving_ur3e_ros2",
-        executable="moving_ur3e",
-        name="moving_ur3e",
+        executable="moving_ur3e_box",
+        name="moving_ur3e_box",
         output="screen",
         parameters=[
             robot_description,
