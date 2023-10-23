@@ -29,8 +29,9 @@ int main(int argc, char *argv[])
     // Create the MoveIt MoveGroup Interface
     using moveit::planning_interface::MoveGroupInterface;
     auto move_group_interface = MoveGroupInterface(node, PLANNING_GROUP);
+    const moveit::core::JointModelGroup *joint_model_group = move_group_interface.getCurrentState()->getJointModelGroup(PLANNING_GROUP);
 
-    // ---------------------------- Creating and Initialize MoveItVisualTools
+    // ---------------------------- Creating and Initialize MoveItVisualTools ----------------------------
 
     // Construct and initialize MoveItVisualTools
     auto moveit_visual_tools = moveit_visual_tools::MoveItVisualTools{
@@ -39,7 +40,9 @@ int main(int argc, char *argv[])
     moveit_visual_tools.deleteAllMarkers();
     moveit_visual_tools.loadRemoteControl();
 
-    // Create closures for visualization
+    // ---------------------------- Lamda Functions for Visualisations with MoveItVisualTools ----------------------------
+
+    // Drawing a title
     auto const draw_title = [&moveit_visual_tools](auto text)
     {
         auto const text_pose = []
@@ -52,16 +55,19 @@ int main(int argc, char *argv[])
                                         rviz_visual_tools::XLARGE);
     };
 
+    // stopping code and wating for user to press "Next"
     auto const prompt = [&moveit_visual_tools](auto text)
     {
         moveit_visual_tools.prompt(text);
     };
 
-    auto const draw_trajectory_tool_path =
-        [&moveit_visual_tools,
-         jmg = move_group_interface.getRobotModel()->getJointModelGroup(PLANNING_GROUP)](auto const trajectory)
+    // Lamda Funktion zum anzeigen einer Trajectorie
+    auto const draw_trajectory_tool_path = [&moveit_visual_tools,
+    jmg_link = move_group_interface.getRobotModel()->getJointModelGroup(PLANNING_GROUP)->getLinkModel("tool0"),
+    jmg = joint_model_group,
+    color = rviz_visual_tools::LIME_GREEN](auto const trajectory)
     {
-        moveit_visual_tools.publishTrajectoryLine(trajectory, jmg);
+        moveit_visual_tools.publishTrajectoryLine(trajectory, jmg_link, jmg, color);
     };
 
     // ---------------------------- Setting up a pose + planning + executing ----------------------------
