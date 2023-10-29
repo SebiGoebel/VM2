@@ -76,3 +76,19 @@ ros2 launch moving_ur3e_ros2 start_moveit_rviz.launch.py
 ```bash
 ros2 launch moving_ur3e_ros2 move_ur3e.launch.py
 ```
+
+## Funktionierende Simulation by Source starten
+1. UR3e Simulation starten
+```bash
+ros2 launch ur_control.launch.py ur_type:=ur3e robot_ip:=172.17.0.2 use_fake_hardware:=true launch_rviz:=false
+```
+2. Starten von MoveIt
+```bash
+ros2 launch ur_moveit.launch.py ur_type:=ur3e launch_rviz:=true
+```
+
+3. Starten der Node
+```bash
+ros2 launch moving_ur3e_ros2 move_ur3e.launch.py
+```
+
