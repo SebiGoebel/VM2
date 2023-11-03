@@ -111,8 +111,8 @@ def generate_launch_description():
     #robot_description_kinematic = get_robot_description_kinematic()
     demo_node = Node(
         package="moving_ur3e_ros2",
-        executable="moving_ur3e_box",
-        name="moving_ur3e_box",
+        executable="moving_ur3e_box_constrained",
+        name="moving_ur3e_box_constrained",
         output="screen",
         parameters=[
             robot_description,

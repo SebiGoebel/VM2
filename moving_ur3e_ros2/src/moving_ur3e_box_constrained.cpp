@@ -2,6 +2,7 @@
 
 #include <rclcpp/rclcpp.hpp>
 #include <moveit/move_group_interface/move_group_interface.h>
+#include <moveit/planning_scene/planning_scene.h>
 #include <moveit_visual_tools/moveit_visual_tools.h>
 #include <thread>
 #include <moveit/planning_scene_interface/planning_scene_interface.h>
@@ -14,6 +15,8 @@
 #else
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 #endif
+
+#include "std_msgs/msg/color_rgba.hpp"
 
 geometry_msgs::msg::Quaternion eul2quat(const tf2Scalar &roll, const tf2Scalar &pitch, const tf2Scalar &yaw)
 {
@@ -104,6 +107,49 @@ int main(int argc, char *argv[])
     {
         moveit_visual_tools.publishTrajectoryLine(trajectory, jmg_link, jmg, color);
     };
+
+    // ---------------------------- Adding a BOX as Floor ----------------------------
+
+    draw_title("Adding Floor");
+    moveit_visual_tools.trigger();
+
+    // Create collision object for the robot to avoid
+    auto const collision_object_floor = [frame_id = move_group_interface.getPlanningFrame()]
+    {
+        moveit_msgs::msg::CollisionObject collision_object_floor;
+        collision_object_floor.header.frame_id = frame_id;
+        collision_object_floor.id = "box_floor";
+        shape_msgs::msg::SolidPrimitive primitive;
+
+        // Define the size of the box in meters
+        primitive.type = primitive.BOX;
+        primitive.dimensions.resize(3);
+        primitive.dimensions[primitive.BOX_X] = 1.5;
+        primitive.dimensions[primitive.BOX_Y] = 1.5;
+        primitive.dimensions[primitive.BOX_Z] = 0.01;
+
+        // Define the pose of the box (relative to the frame_id)
+        geometry_msgs::msg::Pose box_pose;
+        box_pose.orientation.w = 1.0;
+        box_pose.position.x = 0.0;
+        box_pose.position.y = 0.0;
+        box_pose.position.z = -0.01;
+
+        collision_object_floor.primitives.push_back(primitive);
+        collision_object_floor.primitive_poses.push_back(box_pose);
+        collision_object_floor.operation = collision_object_floor.ADD;
+
+        return collision_object_floor;
+    }();
+
+    // Add the collision object to the scene
+    moveit::planning_interface::PlanningSceneInterface planning_scene_interface;
+    //const std_msgs::msg::ColorRGBA& greyColor = std_msgs::msg::ColorRGBA{0.5, 0.5, 0.5, 1.0};
+    //planning_scene::PlanningScene::setObjectColor("box_floor", greyColor);
+    planning_scene_interface.applyCollisionObject(collision_object_floor);
+
+    // Pressing 'Next' to plan around the collision box
+    prompt("Press 'Next' in the RvizVisualToolsGui window to plan to start goal");
 
     // ---------------------------- Moving to start pose ----------------------------
 
@@ -249,7 +295,7 @@ int main(int argc, char *argv[])
     }();
 
     // Add the collision object to the scene
-    moveit::planning_interface::PlanningSceneInterface planning_scene_interface;
+    //moveit::planning_interface::PlanningSceneInterface planning_scene_interface; // bereits beim floor deklariert
     planning_scene_interface.applyCollisionObject(collision_object);
 
     // Pressing 'Next' to plan around the collision box

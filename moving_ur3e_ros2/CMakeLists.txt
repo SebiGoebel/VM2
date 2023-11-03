@@ -44,11 +44,54 @@ ament_target_dependencies(
 install(TARGETS moving_ur3e_box
   DESTINATION lib/${PROJECT_NAME})
 
+# --- moving ur3e to a given pose with a box and constrained workarea ---
+add_executable(moving_ur3e_box_constrained src/moving_ur3e_box_constrained.cpp)
+target_include_directories(moving_ur3e_box_constrained PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+target_compile_features(moving_ur3e_box_constrained PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+ament_target_dependencies(
+  moving_ur3e_box_constrained
+  "moveit_ros_planning_interface"
+  "moveit_visual_tools"
+  "rclcpp"
+)
+  
+install(TARGETS moving_ur3e_box_constrained
+  DESTINATION lib/${PROJECT_NAME})
+
+# --- hybrid planning node ---
+add_executable(hybrid_planning_ur3e src/hybrid_planning_ur3e.cpp)
+target_include_directories(hybrid_planning_ur3e PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+target_compile_features(hybrid_planning_ur3e PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+ament_target_dependencies(
+  hybrid_planning_ur3e
+  #"planning_scene_monitor"
+  "moveit_ros_planning_interface"
+  #"robot_model_loader"
+  #"kinematic_constraints"
+  #"robot_state"
+  #"moveit_msgs"
+  "moveit_visual_tools"
+  "rclcpp"
+)
+#ament_target_dependencies(hybrid_planning_ur3e PUBLIC ${THIS_PACKAGE_INCLUDE_DEPENDS})
+
+install(TARGETS hybrid_planning_ur3e
+  DESTINATION lib/${PROJECT_NAME})
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
+  find_package(ament_cmake_gtest REQUIRED)                            # hinzugefügt für hybrid planning
+  find_package(ros_testing REQUIRED)                                  # hinzugefügt für hybrid planning
+  find_package(Boost REQUIRED COMPONENTS filesystem)                  # hinzugefügt für hybrid planning
   # the following line skips the linter which checks for copyrights
   # comment the line when a copyright and license is added to all source files
   set(ament_cmake_copyright_FOUND TRUE)
+  set(ament_cmake_flake8_FOUND TRUE)                                  # hinzugefügt für hybrid planning
+  set(ament_cmake_uncrustify_FOUND TRUE)                              # hinzugefügt für hybrid planning
   # the following line skips cpplint (only works in a git repo)
   # comment the line when this package is in a git repo and when
   # a copyright and license is added to all source files
