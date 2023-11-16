@@ -60,6 +60,38 @@ ament_target_dependencies(
 install(TARGETS moving_ur3e_box_constrained
   DESTINATION lib/${PROJECT_NAME})
 
+# --- moving ur3e to a given joint goal with a box and constrained workarea ---
+add_executable(moving_ur3e_joint_goal src/moving_ur3e_joint_goal.cpp)
+target_include_directories(moving_ur3e_joint_goal PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+target_compile_features(moving_ur3e_joint_goal PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+ament_target_dependencies(
+  moving_ur3e_joint_goal
+  "moveit_ros_planning_interface"
+  "moveit_visual_tools"
+  "rclcpp"
+)
+  
+install(TARGETS moving_ur3e_joint_goal
+  DESTINATION lib/${PROJECT_NAME})
+
+# --- motion planning pipeline ur3e  ---
+add_executable(motion_planning_pipeline_ur3e src/motion_planning_pipeline_ur3e.cpp)
+target_include_directories(motion_planning_pipeline_ur3e PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+target_compile_features(motion_planning_pipeline_ur3e PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+ament_target_dependencies(
+  motion_planning_pipeline_ur3e
+  "moveit_ros_planning_interface"
+  "moveit_visual_tools"
+  "rclcpp"
+)
+  
+install(TARGETS motion_planning_pipeline_ur3e
+  DESTINATION lib/${PROJECT_NAME})
+
 # --- hybrid planning node ---
 add_executable(hybrid_planning_ur3e src/hybrid_planning_ur3e.cpp)
 target_include_directories(hybrid_planning_ur3e PUBLIC

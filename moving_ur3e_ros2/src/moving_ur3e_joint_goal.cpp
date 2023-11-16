@@ -166,7 +166,7 @@ int main(int argc, char *argv[])
     planning_scene_interface.applyCollisionObject(collision_object_floor);
 
     // ---------------------------- Adding a BOX as Constraint ----------------------------
-
+/*
     // Let's try the simple box constraints first!
     moveit_msgs::msg::PositionConstraint box_constraint;
     box_constraint.header.frame_id = move_group_interface.getPoseReferenceFrame();
@@ -195,7 +195,7 @@ int main(int argc, char *argv[])
 
     move_group_interface.setPathConstraints(box_constraints);
     move_group_interface.setPlanningTime(10.0);
-
+*/
     // ---------------------------- Moving to start pose ----------------------------
 
     // Set a target Pose
@@ -268,8 +268,101 @@ int main(int argc, char *argv[])
     move_group_interface.setPathConstraints(mixed_constraints);
     move_group_interface.setPlanningTime(15.0);
 */
-    // ---------------------------- Moving to target pose ----------------------------
+    // ---------------------------- Moving to joint target ----------------------------
 
+    draw_title("Planing to joint target");
+    moveit_visual_tools.trigger();
+
+    moveit::core::RobotStatePtr current_state = move_group_interface.getCurrentState();
+    
+    // Next get the current set of joint values for the group.
+    std::vector<double> joint_group_positions = {0.0, 0.0, 0.0, 0.0, 0.0, 1.571, 0.785};
+    current_state->copyJointGroupPositions(joint_model_group, joint_group_positions);
+    move_group_interface.setJointValueTarget(joint_group_positions);
+
+    move_group_interface.setMaxVelocityScalingFactor(0.05);
+    move_group_interface.setMaxAccelerationScalingFactor(0.05);
+
+    
+    // RvizVisualToolsGui step
+    prompt("Press 'Next' in the RvizVisualToolsGui window to plan");
+    draw_title("Planing");
+    moveit_visual_tools.trigger();
+
+/*
+    // Create a plan to that target pose
+    auto const [success_target, plan_target] = [&move_group_interface]
+    {
+        moveit::planning_interface::MoveGroupInterface::Plan msg;
+        auto const ok = static_cast<bool>(move_group_interface.plan(msg));
+        return std::make_pair(ok, msg);
+    }();
+
+    // Execute the plan
+    if (success_target)
+    {
+        // drawing the plan
+        draw_trajectory_tool_path_red(plan_target.trajectory_);
+        moveit_visual_tools.trigger();
+
+        // Executing
+        prompt("Press 'Next' in the RvizVisualToolsGui window to execute");
+        draw_title("Executing");
+        moveit_visual_tools.trigger();
+        move_group_interface.execute(plan_target);
+    }
+    else
+    {
+        draw_title("Planning Failed!");
+        moveit_visual_tools.trigger();
+        RCLCPP_ERROR(logger, "Planning failed!");
+    }
+*/
+
+
+
+    // call Planner to compute the plan and visualizing it
+    // No actual movement of the move_group_interface
+    moveit::planning_interface::MoveGroupInterface::Plan my_plan;
+    bool success = (move_group_interface.plan(my_plan) == moveit::core::MoveItErrorCode::SUCCESS);
+    ROS_INFO_NAMED("tutorial", "Visualizing plan 1 (pose goal) %s", success ? "" : "FAILED");
+
+    // Visualizing plans
+    // ^^^^^^^^^^^^^^^^^
+    //
+    // We can also visualize the plan as a line with markers in RViz.
+    ROS_INFO_NAMED("tutorial", "Visualizing plan 1 as trajectory line");
+    visual_tools.publishTrajectoryLine(my_plan.trajectory_, joint_model_group->getLinkModel("tool0"), joint_model_group, rviz_visual_tools::LIME_GREEN);
+    // visual_tools.publishTrajectoryLine(my_plan.trajectory_, joint_model_group); // --> wie im tutorial, funktioniert aber nicht !!!
+    // visual_tools.publishTrajectoryPath(my_plan.trajectory_, my_plan.start_state_); // möglich lösung falls die trajectory verschoben ist
+
+    success = (move_group_interface.plan(my_plan) == moveit::core::MoveItErrorCode::SUCCESS);
+    ROS_INFO_NAMED("tutorial", "Visualizing plan 2 (joint space goal) %s", success ? "" : "FAILED");
+
+    // Visualize the plan in RViz
+    visual_tools.deleteAllMarkers();
+    visual_tools.publishText(text_pose, "Joint Space Goal", rvt::WHITE, rvt::XLARGE);
+    visual_tools.publishTrajectoryLine(my_plan.trajectory_, joint_model_group->getLinkModel("tool0"), joint_model_group, rvt::LIME_GREEN);
+    // visual_tools.publishTrajectoryLine(my_plan.trajectory_, joint_model_group);
+    visual_tools.trigger();
+    visual_tools.prompt("Press 'next' to execute planned path");
+/*
+    success = (move_group_interface.plan(my_plan) == moveit::core::MoveItErrorCode::SUCCESS);
+    ROS_INFO_NAMED("tutorial", "Visualizing plan 2 (joint space goal) %s", success ? "" : "FAILED");
+
+    // Visualize the plan in RViz
+    moveit_visual_tools.deleteAllMarkers();
+    moveit_visual_tools.publishText(text_pose, "Joint Space Goal", rviz_visual_tools::WHITE, rviz_visual_tools::XLARGE);
+    moveit_visual_tools.publishTrajectoryLine(my_plan.trajectory_, joint_model_group->getLinkModel("tool0"), joint_model_group, rviz_visual_tools::LIME_GREEN);
+    // visual_tools.publishTrajectoryLine(my_plan.trajectory_, joint_model_group);
+    moveit_visual_tools.trigger();
+    moveit_visual_tools.prompt("Press 'next' to execute planned path");
+
+    // Executing plan
+    move_group_interface.execute(my_plan);
+*/
+    // ----------------------------------------------------------------------------------
+/*
     draw_title("Planing to target pose");
     moveit_visual_tools.trigger();
 
@@ -321,6 +414,10 @@ int main(int argc, char *argv[])
         moveit_visual_tools.trigger();
         RCLCPP_ERROR(logger, "Planning failed!");
     }
+
+    // Pressing 'Next' to add a collision box
+    prompt("Press 'Next' in the RvizVisualToolsGui window to add a collision box");
+*/
 
     // Pressing 'Next' to add a collision box
     prompt("Press 'Next' in the RvizVisualToolsGui window to add a collision box");
