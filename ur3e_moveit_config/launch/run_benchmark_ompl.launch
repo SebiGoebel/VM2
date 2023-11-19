@@ -1,8 +1,7 @@
 <launch>
 
   <!-- This argument must specify the list of .cfg files to process for benchmarking -->
-  <arg name="cfg" default="$(find moveit_ros_benchmarks)/examples/demo2.yaml"/>
-  <!--<arg name="cfg" />-->
+  <arg name="cfg" />
 
   <!-- Load URDF -->
   <include file="$(find ur3e_moveit_config)/launch/planning_context.launch">
@@ -15,17 +14,9 @@
   </include>  
 
   <!-- Start Benchmark Executable -->
-  <!--<node name="$(anon moveit_benchmark)" pkg="moveit_ros_benchmarks" type="moveit_run_benchmark" args="$(arg cfg) benchmark-planners" respawn="false" output="screen">
+  <node name="$(anon moveit_benchmark)" pkg="moveit_ros_benchmarks" type="moveit_run_benchmark" args="$(arg cfg) --benchmark-planners" respawn="false" output="screen">
     <rosparam command="load" file="$(find ur3e_moveit_config)/config/kinematics.yaml"/>
     <rosparam command="load" file="$(find ur3e_moveit_config)/config/ompl_planning.yaml"/>
-  </node>-->
-
-
-  <!-- Launch benchmark node -->
-
-  <node name="moveit_run_benchmark" pkg="moveit_ros_benchmarks" type="moveit_run_benchmark" output="screen" required="true">
-    <rosparam command="load" file="$(arg cfg)"/>
   </node>
-
 
 </launch>
