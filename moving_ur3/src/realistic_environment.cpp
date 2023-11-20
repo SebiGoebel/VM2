@@ -19,6 +19,27 @@
 #include "geometric_shapes/mesh_operations.h"
 #include "geometric_shapes/shape_operations.h"
 
+// euler 2 quaternions
+#include <tf/LinearMath/Quaternion.h>
+#include <cmath> // für PI
+#include <tf/transform_datatypes.h>
+
+geometry_msgs::Quaternion euler2Quaternion_deg(double roll, double pitch, double yaw) {
+
+    double roll_rad = roll * M_PI / 180;
+    double pitch_rad = pitch * M_PI / 180;
+    double yaw_rad = yaw * M_PI / 180;
+
+    // Convert Euler angles to quaternion
+    tf::Quaternion tf_quaternion = tf::createQuaternionFromRPY(roll_rad, pitch_rad, yaw_rad);
+
+    // Convert tf::Quaternion to geometry_msgs::Quaternion
+    geometry_msgs::Quaternion quaternion_msg;
+    tf::quaternionTFToMsg(tf_quaternion, quaternion_msg);
+
+    return quaternion_msg;
+}
+
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "moving_ur3");
@@ -161,26 +182,27 @@ int main(int argc, char **argv)
 
     // --- adding object from stl ---
 
-    Eigen::Vector3d b(0.001, 0.001, 0.001);
+    Eigen::Vector3d b(0.01, 0.01, 0.01);
     moveit_msgs::CollisionObject co;
     co.header.frame_id = move_group_interface.getPlanningFrame();
     co.id = "test_mesh";
     move_group_interface.getPlanningFrame();
-    shapes::Mesh* m = shapes::createMeshFromResource("package://moving_ur3/collisionObjects/testSTL.stl",b);
+    shapes::Mesh *m = shapes::createMeshFromResource("package://moving_ur3/collisionObjects/Medical Operating Table.stl", b);
     ROS_INFO("Wall mesh loaded");
 
     shape_msgs::Mesh mesh;
-    shapes::ShapeMsg mesh_msg;  
+    shapes::ShapeMsg mesh_msg;
     shapes::constructMsgFromShape(m, mesh_msg);
     mesh = boost::get<shape_msgs::Mesh>(mesh_msg);
 
     co.meshes.resize(1);
     co.mesh_poses.resize(1);
     co.meshes[0] = mesh;
-    co.mesh_poses[0].orientation.w = 1.0;
-    co.mesh_poses[0].orientation.x = 0.0;
-    co.mesh_poses[0].orientation.y = 0.0;
-    co.mesh_poses[0].orientation.z = 0.0;
+    co.mesh_poses[0].orientation = euler2Quaternion_deg(90, 0, 0);
+    //co.mesh_poses[0].orientation.w = 1.0;
+    //co.mesh_poses[0].orientation.x = 0.0;
+    //co.mesh_poses[0].orientation.y = 0.0;
+    //co.mesh_poses[0].orientation.z = 0.0;
     co.mesh_poses[0].position.x = 1.0;
     co.mesh_poses[0].position.y = 0.0;
     co.mesh_poses[0].position.z = 0.0;
@@ -189,9 +211,9 @@ int main(int argc, char **argv)
     co.mesh_poses.push_back(co.mesh_poses[0]);
     co.operation = co.ADD;
 
-    //std::vector<moveit_msgs::CollisionObject> vec;
+    // std::vector<moveit_msgs::CollisionObject> vec;
     collision_objects.push_back(co);
-    //vec.push_back(co);
+    // vec.push_back(co);
     ROS_INFO("Wall added into the world");
     planning_scene_interface.addCollisionObjects(collision_objects);
 
@@ -217,10 +239,11 @@ int main(int argc, char **argv)
     // remove objects from world
     ROS_INFO_NAMED("tutorial", "Remove the objects from the world");
     std::vector<std::string> object_ids;
-    for(int i = 0; i < collision_objects.size(); i++){
+    for (int i = 0; i < collision_objects.size(); i++)
+    {
         object_ids.push_back(collision_objects.at(i).id);
     }
-    //object_ids.push_back(collision_object.id);
+    // object_ids.push_back(collision_object.id);
     object_ids.push_back(object_to_attach.id);
     planning_scene_interface.removeCollisionObjects(object_ids);
 
