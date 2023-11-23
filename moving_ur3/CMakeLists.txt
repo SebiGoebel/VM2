@@ -230,6 +230,9 @@ target_link_libraries(moving_ur3 ${catkin_LIBRARIES})
 add_executable(realistic_environment src/realistic_environment.cpp)
 target_link_libraries(realistic_environment ${catkin_LIBRARIES})
 
+add_executable(addRealisticEnvironment src/addRealisticEnvironment.cpp)
+target_link_libraries(addRealisticEnvironment ${catkin_LIBRARIES})
+
 add_executable(motion_planning_pipeline_ur3e src/motion_planning_pipeline_ur3e.cpp)
 target_link_libraries(motion_planning_pipeline_ur3e ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 install(TARGETS motion_planning_pipeline_ur3e DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
