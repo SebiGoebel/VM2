@@ -24,7 +24,10 @@
 #include <cmath> // für PI
 #include <tf/transform_datatypes.h>
 
-geometry_msgs::Quaternion euler2Quaternion_deg(double roll, double pitch, double yaw) {
+#define loadingHumans true
+
+geometry_msgs::Quaternion euler2Quaternion_deg(double roll, double pitch, double yaw)
+{
 
     double roll_rad = roll * M_PI / 180;
     double pitch_rad = pitch * M_PI / 180;
@@ -160,7 +163,7 @@ int main(int argc, char **argv)
     // Define a pose for the box (specified relative to frame_id)
     geometry_msgs::Pose box_pose;
     box_pose.orientation.w = 1.0;
-    box_pose.position.x = -x_value_mir / 4;          // 0.0
+    box_pose.position.x = -x_value_mir / 4 - 0.1;    // 0.0
     box_pose.position.y = -y_value_mir / 4;          // 0.0
     box_pose.position.z = -(z_value_mir / 2) - 0.01; // -0.01 // -0.01 -> safty abstand für simulation damit keine collisions entstehen
 
@@ -180,41 +183,194 @@ int main(int argc, char **argv)
     visual_tools.trigger();
     visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to once the collision object appears in RViz");
 
-    // --- adding object from stl ---
+    // --- adding operation bed from stl ---
 
-    Eigen::Vector3d b(0.01, 0.01, 0.01);
-    moveit_msgs::CollisionObject co;
-    co.header.frame_id = move_group_interface.getPlanningFrame();
-    co.id = "test_mesh";
+    Eigen::Vector3d scale_bed(0.01, 0.01, 0.01);
+    moveit_msgs::CollisionObject co_bed;
+    co_bed.header.frame_id = move_group_interface.getPlanningFrame();
+    co_bed.id = "bed_mesh";
     move_group_interface.getPlanningFrame();
-    shapes::Mesh *m = shapes::createMeshFromResource("package://moving_ur3/collisionObjects/Medical Operating Table.stl", b);
-    ROS_INFO("Wall mesh loaded");
+    shapes::Mesh *m_bed = shapes::createMeshFromResource("package://moving_ur3/collisionObjects/Medical Operating Table.stl", scale_bed);
+    ROS_INFO("operation bed loaded");
 
-    shape_msgs::Mesh mesh;
-    shapes::ShapeMsg mesh_msg;
-    shapes::constructMsgFromShape(m, mesh_msg);
-    mesh = boost::get<shape_msgs::Mesh>(mesh_msg);
+    shape_msgs::Mesh mesh_bed;
+    shapes::ShapeMsg mesh_msg_bed;
+    shapes::constructMsgFromShape(m_bed, mesh_msg_bed);
+    mesh_bed = boost::get<shape_msgs::Mesh>(mesh_msg_bed);
 
-    co.meshes.resize(1);
-    co.mesh_poses.resize(1);
-    co.meshes[0] = mesh;
-    co.mesh_poses[0].orientation = euler2Quaternion_deg(90, 0, 0);
-    //co.mesh_poses[0].orientation.w = 1.0;
-    //co.mesh_poses[0].orientation.x = 0.0;
-    //co.mesh_poses[0].orientation.y = 0.0;
-    //co.mesh_poses[0].orientation.z = 0.0;
-    co.mesh_poses[0].position.x = 1.0;
-    co.mesh_poses[0].position.y = 0.0;
-    co.mesh_poses[0].position.z = 0.0;
+    co_bed.meshes.resize(1);
+    co_bed.mesh_poses.resize(1);
+    co_bed.meshes[0] = mesh_bed;
+    co_bed.mesh_poses[0].orientation = euler2Quaternion_deg(90, 0, 90);
+    // co_bed.mesh_poses[0].orientation.w = 1.0;
+    // co_bed.mesh_poses[0].orientation.x = 0.0;
+    // co_bed.mesh_poses[0].orientation.y = 0.0;
+    // co_bed.mesh_poses[0].orientation.z = 0.0;
+    co_bed.mesh_poses[0].position.x = 0.5;
+    co_bed.mesh_poses[0].position.y = 0.8;
+    co_bed.mesh_poses[0].position.z = 0.0;
 
-    co.meshes.push_back(mesh);
-    co.mesh_poses.push_back(co.mesh_poses[0]);
-    co.operation = co.ADD;
+    co_bed.meshes.push_back(mesh_bed);
+    co_bed.mesh_poses.push_back(co_bed.mesh_poses[0]);
+    co_bed.operation = co_bed.ADD;
 
     // std::vector<moveit_msgs::CollisionObject> vec;
-    collision_objects.push_back(co);
-    // vec.push_back(co);
-    ROS_INFO("Wall added into the world");
+    collision_objects.push_back(co_bed);
+    // vec.push_back(co_bed);
+    ROS_INFO("Operation bed added into the world");
+
+    // --- adding doctorOperation doctor from stl ---
+    shapes::Mesh *m_doctorOperation;
+    shapes::Mesh *m_patient;
+
+    if (loadingHumans)
+    {
+        Eigen::Vector3d scale_doctorOperation(0.0008, 0.0008, 0.0008);
+        moveit_msgs::CollisionObject co_doctorOperation;
+        co_doctorOperation.header.frame_id = move_group_interface.getPlanningFrame();
+        co_doctorOperation.id = "doctorOperation_mesh";
+        move_group_interface.getPlanningFrame();
+        //shapes::Mesh *m_doctorOperation = shapes::createMeshFromResource("package://moving_ur3/collisionObjects/human.STL", scale_doctorOperation);
+        m_doctorOperation = shapes::createMeshFromResource("package://moving_ur3/collisionObjects/human.STL", scale_doctorOperation);
+        ROS_INFO("operation doctorOperation loaded");
+
+        shape_msgs::Mesh mesh_doctorOperation;
+        shapes::ShapeMsg mesh_msg_doctorOperation;
+        shapes::constructMsgFromShape(m_doctorOperation, mesh_msg_doctorOperation);
+        mesh_doctorOperation = boost::get<shape_msgs::Mesh>(mesh_msg_doctorOperation);
+
+        co_doctorOperation.meshes.resize(1);
+        co_doctorOperation.mesh_poses.resize(1);
+        co_doctorOperation.meshes[0] = mesh_doctorOperation;
+        co_doctorOperation.mesh_poses[0].orientation = euler2Quaternion_deg(90, 0, 90);
+        // co_doctorOperation.mesh_poses[0].orientation.w = 1.0;
+        // co_doctorOperation.mesh_poses[0].orientation.x = 0.0;
+        // co_doctorOperation.mesh_poses[0].orientation.y = 0.0;
+        // co_doctorOperation.mesh_poses[0].orientation.z = 0.0;
+        co_doctorOperation.mesh_poses[0].position.x = -0.4;
+        co_doctorOperation.mesh_poses[0].position.y = 0.5;
+        co_doctorOperation.mesh_poses[0].position.z = -0.75;
+
+        co_doctorOperation.meshes.push_back(mesh_doctorOperation);
+        co_doctorOperation.mesh_poses.push_back(co_doctorOperation.mesh_poses[0]);
+        co_doctorOperation.operation = co_doctorOperation.ADD;
+
+        // std::vector<moveit_msgs::CollisionObject> vec;
+        collision_objects.push_back(co_doctorOperation);
+        // vec.push_back(co_doctorOperation);
+        ROS_INFO("Operation doctorOperation added into the world");
+
+        // --- adding patient from stl ---
+
+        Eigen::Vector3d scale_patient(0.001, 0.001, 0.001);
+        moveit_msgs::CollisionObject co_patient;
+        co_patient.header.frame_id = move_group_interface.getPlanningFrame();
+        co_patient.id = "patient_mesh";
+        move_group_interface.getPlanningFrame();
+        m_patient = shapes::createMeshFromResource("package://moving_ur3/collisionObjects/human.STL", scale_patient);
+        ROS_INFO("operation patient loaded");
+
+        shape_msgs::Mesh mesh_patient;
+        shapes::ShapeMsg mesh_msg_patient;
+        shapes::constructMsgFromShape(m_patient, mesh_msg_patient);
+        mesh_patient = boost::get<shape_msgs::Mesh>(mesh_msg_patient);
+
+        co_patient.meshes.resize(1);
+        co_patient.mesh_poses.resize(1);
+        co_patient.meshes[0] = mesh_patient;
+        co_patient.mesh_poses[0].orientation = euler2Quaternion_deg(0, 0, 0);
+        // co_patient.mesh_poses[0].orientation.w = 1.0;
+        // co_patient.mesh_poses[0].orientation.x = 0.0;
+        // co_patient.mesh_poses[0].orientation.y = 0.0;
+        // co_patient.mesh_poses[0].orientation.z = 0.0;
+        co_patient.mesh_poses[0].position.x = 0.2;
+        co_patient.mesh_poses[0].position.y = 0;
+        co_patient.mesh_poses[0].position.z = -0.2;
+
+        co_patient.meshes.push_back(mesh_patient);
+        co_patient.mesh_poses.push_back(co_patient.mesh_poses[0]);
+        co_patient.operation = co_patient.ADD;
+
+        // std::vector<moveit_msgs::CollisionObject> vec;
+        collision_objects.push_back(co_patient);
+        // vec.push_back(co_patient);
+        ROS_INFO("Operation patient added into the world");
+    }
+
+    // --- adding tray from stl ---
+
+    Eigen::Vector3d scale_tray(0.0008, 0.0008, 0.0008);
+    moveit_msgs::CollisionObject co_tray;
+    co_tray.header.frame_id = move_group_interface.getPlanningFrame();
+    co_tray.id = "tray_mesh";
+    move_group_interface.getPlanningFrame();
+    shapes::Mesh *m_tray = shapes::createMeshFromResource("package://moving_ur3/collisionObjects/surgicalTray.STL", scale_tray);
+    ROS_INFO("operation tray loaded");
+
+    shape_msgs::Mesh mesh_tray;
+    shapes::ShapeMsg mesh_msg_tray;
+    shapes::constructMsgFromShape(m_tray, mesh_msg_tray);
+    mesh_tray = boost::get<shape_msgs::Mesh>(mesh_msg_tray);
+
+    co_tray.meshes.resize(1);
+    co_tray.mesh_poses.resize(1);
+    co_tray.meshes[0] = mesh_tray;
+    co_tray.mesh_poses[0].orientation = euler2Quaternion_deg(90, 0, 0);
+    // co_tray.mesh_poses[0].orientation.w = 1.0;
+    // co_tray.mesh_poses[0].orientation.x = 0.0;
+    // co_tray.mesh_poses[0].orientation.y = 0.0;
+    // co_tray.mesh_poses[0].orientation.z = 0.0;
+    co_tray.mesh_poses[0].position.x = -0.3;
+    co_tray.mesh_poses[0].position.y = -0.15;
+    co_tray.mesh_poses[0].position.z = -0.75 + 0.02;
+
+    co_tray.meshes.push_back(mesh_tray);
+    co_tray.mesh_poses.push_back(co_tray.mesh_poses[0]);
+    co_tray.operation = co_tray.ADD;
+
+    // std::vector<moveit_msgs::CollisionObject> vec;
+    collision_objects.push_back(co_tray);
+    // vec.push_back(co_tray);
+    ROS_INFO("Operation tray added into the world");
+
+    // --- adding emptyTray from stl ---
+
+    Eigen::Vector3d scale_emptyTray(0.0008, 0.0008, 0.0008);
+    moveit_msgs::CollisionObject co_emptyTray;
+    co_emptyTray.header.frame_id = move_group_interface.getPlanningFrame();
+    co_emptyTray.id = "emptyTray_mesh";
+    move_group_interface.getPlanningFrame();
+    shapes::Mesh *m_emptyTray = shapes::createMeshFromResource("package://moving_ur3/collisionObjects/emptyTray.STL", scale_emptyTray);
+    ROS_INFO("operation emptyTray loaded");
+
+    shape_msgs::Mesh mesh_emptyTray;
+    shapes::ShapeMsg mesh_msg_emptyTray;
+    shapes::constructMsgFromShape(m_emptyTray, mesh_msg_emptyTray);
+    mesh_emptyTray = boost::get<shape_msgs::Mesh>(mesh_msg_emptyTray);
+
+    co_emptyTray.meshes.resize(1);
+    co_emptyTray.mesh_poses.resize(1);
+    co_emptyTray.meshes[0] = mesh_emptyTray;
+    co_emptyTray.mesh_poses[0].orientation = euler2Quaternion_deg(90, 0, 90);
+    // co_emptyTray.mesh_poses[0].orientation.w = 1.0;
+    // co_emptyTray.mesh_poses[0].orientation.x = 0.0;
+    // co_emptyTray.mesh_poses[0].orientation.y = 0.0;
+    // co_emptyTray.mesh_poses[0].orientation.z = 0.0;
+    co_emptyTray.mesh_poses[0].position.x = -0.6;
+    co_emptyTray.mesh_poses[0].position.y = -0.3;
+    co_emptyTray.mesh_poses[0].position.z = -0.75 + 0.02;
+
+    co_emptyTray.meshes.push_back(mesh_emptyTray);
+    co_emptyTray.mesh_poses.push_back(co_emptyTray.mesh_poses[0]);
+    co_emptyTray.operation = co_emptyTray.ADD;
+
+    // std::vector<moveit_msgs::CollisionObject> vec;
+    collision_objects.push_back(co_emptyTray);
+    // vec.push_back(co_emptyTray);
+    ROS_INFO("Operation emptyTray added into the world");
+
+
+
     planning_scene_interface.addCollisionObjects(collision_objects);
 
     // Show text in RViz of status and wait for MoveGroup to receive and process the collision object message
@@ -255,6 +411,10 @@ int main(int argc, char **argv)
     visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to once the collision object disappears");
 
     ros::shutdown();
-    delete m;
+    delete m_bed;
+    delete m_doctorOperation;
+    delete m_patient;
+    delete m_tray;
+    delete m_emptyTray;
     return 0;
 }
