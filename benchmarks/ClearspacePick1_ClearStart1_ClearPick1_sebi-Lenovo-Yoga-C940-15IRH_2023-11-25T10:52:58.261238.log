@@ -1,0 +1,450 @@
+MoveIt version 1.1.14-devel
+Experiment ClearStart1_ClearPick1
+Running on sebi-Lenovo-Yoga-C940-15IRH
+Starting at 2023-11-25T10:52:58.261238
+<<<|
+Motion plan request:
+workspace_parameters: 
+  header: 
+    seq: 0
+    stamp: 0.000000000
+    frame_id: 
+  min_corner: 
+    x: -1
+    y: -1
+    z: -1
+  max_corner: 
+    x: 1
+    y: 1
+    z: 1
+start_state: 
+  joint_state: 
+    header: 
+      seq: 0
+      stamp: 0.000000000
+      frame_id: base_link
+    name[]
+      name[0]: shoulder_pan_joint
+      name[1]: shoulder_lift_joint
+      name[2]: elbow_joint
+      name[3]: wrist_1_joint
+      name[4]: wrist_2_joint
+      name[5]: wrist_3_joint
+    position[]
+      position[0]: -2.52402
+      position[1]: -1.44478
+      position[2]: -1.55133
+      position[3]: 4.60317
+      position[4]: 1.62144
+      position[5]: 2.19053
+    velocity[]
+    effort[]
+  multi_dof_joint_state: 
+    header: 
+      seq: 0
+      stamp: 0.000000000
+      frame_id: base_link
+    joint_names[]
+    transforms[]
+    twist[]
+    wrench[]
+  attached_collision_objects[]
+  is_diff: 0
+goal_constraints[]
+  goal_constraints[0]: 
+    name: 
+    joint_constraints[]
+      joint_constraints[0]: 
+            joint_name: shoulder_pan_joint
+        position: -0.775709
+        tolerance_above: 2.22045e-16
+        tolerance_below: 2.22045e-16
+        weight: 1
+      joint_constraints[1]: 
+            joint_name: shoulder_lift_joint
+        position: 5.08232
+        tolerance_above: 2.22045e-16
+        tolerance_below: 2.22045e-16
+        weight: 1
+      joint_constraints[2]: 
+            joint_name: elbow_joint
+        position: -1.75451
+        tolerance_above: 2.22045e-16
+        tolerance_below: 2.22045e-16
+        weight: 1
+      joint_constraints[3]: 
+            joint_name: wrist_1_joint
+        position: -1.78586
+        tolerance_above: 2.22045e-16
+        tolerance_below: 2.22045e-16
+        weight: 1
+      joint_constraints[4]: 
+            joint_name: wrist_2_joint
+        position: -4.68203
+        tolerance_above: 2.22045e-16
+        tolerance_below: 2.22045e-16
+        weight: 1
+      joint_constraints[5]: 
+            joint_name: wrist_3_joint
+        position: -2.34709
+        tolerance_above: 2.22045e-16
+        tolerance_below: 2.22045e-16
+        weight: 1
+    position_constraints[]
+    orientation_constraints[]
+    visibility_constraints[]
+path_constraints: 
+  name: 
+  joint_constraints[]
+  position_constraints[]
+  orientation_constraints[]
+  visibility_constraints[]
+trajectory_constraints: 
+  constraints[]
+reference_trajectories[]
+pipeline_id: 
+planner_id: 
+group_name: manipulator
+num_planning_attempts: 1
+allowed_planning_time: 10
+max_velocity_scaling_factor: 1
+max_acceleration_scaling_factor: 1
+cartesian_speed_limited_link: 
+max_cartesian_speed: 0
+
+Planning scene: 
+name: Clearspace1
+robot_state: 
+  joint_state: 
+    header: 
+      seq: 0
+      stamp: 0.000000000
+      frame_id: base_link
+    name[]
+      name[0]: shoulder_pan_joint
+      name[1]: shoulder_lift_joint
+      name[2]: elbow_joint
+      name[3]: wrist_1_joint
+      name[4]: wrist_2_joint
+      name[5]: wrist_3_joint
+    position[]
+      position[0]: 0
+      position[1]: 0
+      position[2]: 0
+      position[3]: 0
+      position[4]: 0
+      position[5]: 0
+    velocity[]
+    effort[]
+  multi_dof_joint_state: 
+    header: 
+      seq: 0
+      stamp: 0.000000000
+      frame_id: base_link
+    joint_names[]
+    transforms[]
+    twist[]
+    wrench[]
+  attached_collision_objects[]
+  is_diff: 0
+robot_model_name: ur3e_robot
+fixed_frame_transforms[]
+  fixed_frame_transforms[0]: 
+    header: 
+      seq: 0
+      stamp: 0.000000000
+      frame_id: base_link
+    child_frame_id: base_link
+    transform: 
+      translation: 
+        x: 0
+        y: 0
+        z: 0
+      rotation: 
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+allowed_collision_matrix: 
+  entry_names[]
+    entry_names[0]: base_link_inertia
+    entry_names[1]: forearm_link
+    entry_names[2]: shoulder_link
+    entry_names[3]: upper_arm_link
+    entry_names[4]: wrist_1_link
+    entry_names[5]: wrist_2_link
+    entry_names[6]: wrist_3_link
+  entry_values[]
+    entry_values[0]: 
+        enabled[]
+        enabled[0]: 0
+        enabled[1]: 0
+        enabled[2]: 1
+        enabled[3]: 1
+        enabled[4]: 1
+        enabled[5]: 0
+        enabled[6]: 0
+    entry_values[1]: 
+        enabled[]
+        enabled[0]: 0
+        enabled[1]: 0
+        enabled[2]: 0
+        enabled[3]: 1
+        enabled[4]: 1
+        enabled[5]: 0
+        enabled[6]: 0
+    entry_values[2]: 
+        enabled[]
+        enabled[0]: 1
+        enabled[1]: 0
+        enabled[2]: 0
+        enabled[3]: 1
+        enabled[4]: 1
+        enabled[5]: 1
+        enabled[6]: 0
+    entry_values[3]: 
+        enabled[]
+        enabled[0]: 1
+        enabled[1]: 1
+        enabled[2]: 1
+        enabled[3]: 0
+        enabled[4]: 0
+        enabled[5]: 0
+        enabled[6]: 0
+    entry_values[4]: 
+        enabled[]
+        enabled[0]: 1
+        enabled[1]: 1
+        enabled[2]: 1
+        enabled[3]: 0
+        enabled[4]: 0
+        enabled[5]: 1
+        enabled[6]: 1
+    entry_values[5]: 
+        enabled[]
+        enabled[0]: 0
+        enabled[1]: 0
+        enabled[2]: 1
+        enabled[3]: 0
+        enabled[4]: 1
+        enabled[5]: 0
+        enabled[6]: 1
+    entry_values[6]: 
+        enabled[]
+        enabled[0]: 0
+        enabled[1]: 0
+        enabled[2]: 0
+        enabled[3]: 0
+        enabled[4]: 1
+        enabled[5]: 1
+        enabled[6]: 0
+  default_entry_names[]
+  default_entry_values[]
+link_padding[]
+  link_padding[0]: 
+    link_name: base_link_inertia
+    padding: 0
+  link_padding[1]: 
+    link_name: forearm_link
+    padding: 0
+  link_padding[2]: 
+    link_name: shoulder_link
+    padding: 0
+  link_padding[3]: 
+    link_name: upper_arm_link
+    padding: 0
+  link_padding[4]: 
+    link_name: wrist_1_link
+    padding: 0
+  link_padding[5]: 
+    link_name: wrist_2_link
+    padding: 0
+  link_padding[6]: 
+    link_name: wrist_3_link
+    padding: 0
+link_scale[]
+  link_scale[0]: 
+    link_name: base_link_inertia
+    scale: 1
+  link_scale[1]: 
+    link_name: forearm_link
+    scale: 1
+  link_scale[2]: 
+    link_name: shoulder_link
+    scale: 1
+  link_scale[3]: 
+    link_name: upper_arm_link
+    scale: 1
+  link_scale[4]: 
+    link_name: wrist_1_link
+    scale: 1
+  link_scale[5]: 
+    link_name: wrist_2_link
+    scale: 1
+  link_scale[6]: 
+    link_name: wrist_3_link
+    scale: 1
+object_colors[]
+world: 
+  collision_objects[]
+  octomap: 
+    header: 
+      seq: 0
+      stamp: 0.000000000
+      frame_id: base_link
+    origin: 
+      position: 
+        x: 0
+        y: 0
+        z: 0
+      orientation: 
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    octomap: 
+      header: 
+        seq: 0
+        stamp: 0.000000000
+        frame_id: 
+      binary: 0
+      id: 
+      resolution: 0
+      data[]
+is_diff: 0
+
+|>>>
+0 is the random seed
+10 seconds per run
+-1 MB per run
+50 runs per planner
+59.9043 seconds spent to collect the data
+0 enum types
+2 planners
+CHOMP (chomp_stomp)
+0 common properties
+14 properties for each run
+average_waypoint_distance REAL
+final_path_clearance REAL
+final_path_correct BOOLEAN
+final_path_length REAL
+final_path_smoothness REAL
+final_path_time REAL
+path_plan_clearance REAL
+path_plan_correct BOOLEAN
+path_plan_length REAL
+path_plan_smoothness REAL
+path_plan_time REAL
+process_time REAL
+solved BOOLEAN
+time REAL
+50 runs
+0.508531; inf; 1; 26.9861; 0.00408856; 0.279161; inf; 1; 26.9861; 0.00408856; 0.279161; 0.399975; 1; 0.679137; 
+0.480973; inf; 1; 27.209; 0.00487213; 0.294631; inf; 1; 27.209; 0.00487213; 0.294631; 0.380879; 1; 0.675509; 
+0.642489; inf; 1; 26.8369; 0.00357962; 0.281781; inf; 1; 26.8369; 0.00357962; 0.281781; 0.380316; 1; 0.662097; 
+0.533378; inf; 1; 26.9969; 0.00298878; 0.316894; inf; 1; 26.9969; 0.00298878; 0.316894; 0.388554; 1; 0.705448; 
+0.501577; inf; 1; 27.4134; 0.00324336; 0.278175; inf; 1; 27.4134; 0.00324336; 0.278175; 0.387227; 1; 0.665402; 
+0.39121; inf; 1; 27.2093; 0.000830951; 0.290407; inf; 1; 27.2093; 0.000830951; 0.290407; 0.388364; 1; 0.678771; 
+0.466161; inf; 1; 27.0845; 0.00186037; 0.313368; inf; 1; 27.0845; 0.00186037; 0.313368; 0.388353; 1; 0.701722; 
+0.421959; inf; 1; 27.2819; 0.00497936; 0.280637; inf; 1; 27.2819; 0.00497936; 0.280637; 0.385622; 1; 0.66626; 
+0.630113; inf; 1; 26.7779; 0.00084887; 0.283657; inf; 1; 26.7779; 0.00084887; 0.283657; 0.378364; 1; 0.66202; 
+0.473963; inf; 1; 27.3276; 0.00140486; 0.276176; inf; 1; 27.3276; 0.00140486; 0.276176; 0.376216; 1; 0.652392; 
+0.518326; inf; 1; 27.1852; 0.00285158; 0.28237; inf; 1; 27.1852; 0.00285158; 0.28237; 0.381831; 1; 0.6642; 
+0.415784; inf; 1; 27.4094; 0.00257249; 0.284069; inf; 1; 27.4094; 0.00257249; 0.284069; 0.384818; 1; 0.668887; 
+0.415618; inf; 1; 27.4902; 0.00208629; 0.28605; inf; 1; 27.4902; 0.00208629; 0.28605; 0.377115; 1; 0.663165; 
+0.576483; inf; 1; 27.0056; 0.0017594; 0.282025; inf; 1; 27.0056; 0.0017594; 0.282025; 0.381121; 1; 0.663145; 
+0.422496; inf; 1; 27.2503; 0.00223094; 0.279003; inf; 1; 27.2503; 0.00223094; 0.279003; 0.379926; 1; 0.658929; 
+0.407622; inf; 1; 27.2703; 0.000595989; 0.283832; inf; 1; 27.2703; 0.000595989; 0.283832; 0.38326; 1; 0.667092; 
+0.389364; inf; 1; 27.0161; 0.00137336; 0.282871; inf; 1; 27.0161; 0.00137336; 0.282871; 0.385791; 1; 0.668662; 
+0.573334; inf; 1; 26.7239; 0.00253515; 0.282119; inf; 1; 26.7239; 0.00253515; 0.282119; 0.383013; 1; 0.665132; 
+0.468607; inf; 1; 27.1104; 0.00198234; 0.28701; inf; 1; 27.1104; 0.00198234; 0.28701; 0.382785; 1; 0.669795; 
+0.467731; inf; 1; 26.9823; 0.00169482; 0.283576; inf; 1; 26.9823; 0.00169482; 0.283576; 0.380661; 1; 0.664237; 
+0.436168; inf; 1; 26.9021; 0.00445375; 0.286532; inf; 1; 26.9021; 0.00445375; 0.286532; 0.384048; 1; 0.67058; 
+0.477591; inf; 1; 27.2398; 0.00518111; 0.304429; inf; 1; 27.2398; 0.00518111; 0.304429; 0.388208; 1; 0.692636; 
+0.495435; inf; 1; 27.4686; 0.00247783; 0.286719; inf; 1; 27.4686; 0.00247783; 0.286719; 0.390752; 1; 0.677471; 
+0.523858; inf; 1; 27.7318; 0.0012477; 0.287669; inf; 1; 27.7318; 0.0012477; 0.287669; 0.384128; 1; 0.671797; 
+0.490295; inf; 1; 27.407; 0.000102183; 0.290384; inf; 1; 27.407; 0.000102183; 0.290384; 0.398348; 1; 0.688732; 
+0.479133; inf; 1; 27.1321; 0.000943762; 0.303116; inf; 1; 27.1321; 0.000943762; 0.303116; 0.390268; 1; 0.693384; 
+0.402894; inf; 1; 27.2629; 0.00293304; 0.288935; inf; 1; 27.2629; 0.00293304; 0.288935; 0.396834; 1; 0.685769; 
+0.643416; inf; 1; 28.0279; 0.000635353; 0.288003; inf; 1; 28.0279; 0.000635353; 0.288003; 0.383509; 1; 0.671513; 
+0.382171; inf; 1; 27.2238; 0.000362684; 0.286082; inf; 1; 27.2238; 0.000362684; 0.286082; 0.386804; 1; 0.672886; 
+0.474799; inf; 1; 26.9881; 0.00106151; 0.293688; inf; 1; 26.9881; 0.00106151; 0.293688; 0.394004; 1; 0.687692; 
+0.381609; inf; 1; 27.0488; 0.00192158; 0.283743; inf; 1; 27.0488; 0.00192158; 0.283743; 0.402643; 1; 0.686386; 
+0.42298; inf; 1; 27.3522; 0.00190622; 0.303592; inf; 1; 27.3522; 0.00190622; 0.303592; 0.387031; 1; 0.690623; 
+0.558316; inf; 1; 27.553; 0.000338955; 0.292558; inf; 1; 27.553; 0.000338955; 0.292558; 0.387026; 1; 0.679584; 
+0.448937; inf; 1; 27.604; 0.000772629; 0.291159; inf; 1; 27.604; 0.000772629; 0.291159; 0.384859; 1; 0.676018; 
+0.534781; inf; 1; 27.1722; 0.00290088; 0.281785; inf; 1; 27.1722; 0.00290088; 0.281785; 0.386755; 1; 0.66854; 
+0.414531; inf; 1; 27.4984; 0.000219417; 0.297633; inf; 1; 27.4984; 0.000219417; 0.297633; 0.384888; 1; 0.682521; 
+0.717927; inf; 1; 28.265; 0.00420256; 0.287642; inf; 1; 28.265; 0.00420256; 0.287642; 0.398825; 1; 0.686467; 
+0.410241; inf; 1; 27.0558; 0.00089199; 0.291596; inf; 1; 27.0558; 0.00089199; 0.291596; 0.392937; 1; 0.684534; 
+0.50686; inf; 1; 26.8601; 0.00575307; 0.286059; inf; 1; 26.8601; 0.00575307; 0.286059; 0.384986; 1; 0.671045; 
+0.522427; inf; 1; 27.0653; 0.00153317; 0.29375; inf; 1; 27.0653; 0.00153317; 0.29375; 0.384856; 1; 0.678606; 
+0.640372; inf; 1; 27.5391; 0.0019925; 0.287533; inf; 1; 27.5391; 0.0019925; 0.287533; 0.387886; 1; 0.675419; 
+0.428957; inf; 1; 27.3251; 0.0040423; 0.283182; inf; 1; 27.3251; 0.0040423; 0.283182; 0.384088; 1; 0.66727; 
+0.567576; inf; 1; 27.7135; 0.00132736; 0.283896; inf; 1; 27.7135; 0.00132736; 0.283896; 0.386729; 1; 0.670625; 
+0.478694; inf; 1; 27.0793; 0.00195919; 0.285176; inf; 1; 27.0793; 0.00195919; 0.285176; 0.385643; 1; 0.670819; 
+0.399559; inf; 1; 27.2437; 0.000556032; 0.287409; inf; 1; 27.2437; 0.000556032; 0.287409; 0.384335; 1; 0.671744; 
+0.455918; inf; 1; 26.8857; 0.000847203; 0.287971; inf; 1; 26.8857; 0.000847203; 0.287971; 0.384149; 1; 0.67212; 
+0.493348; inf; 1; 27.5555; 0.0016282; 0.290077; inf; 1; 27.5555; 0.0016282; 0.290077; 0.385744; 1; 0.675822; 
+0.467408; inf; 1; 27.0475; 0.00180419; 0.285912; inf; 1; 27.0475; 0.00180419; 0.285912; 0.388549; 1; 0.674461; 
+0.421008; inf; 1; 27.4149; 0.00106398; 0.286403; inf; 1; 27.4149; 0.00106398; 0.286403; 0.384588; 1; 0.670992; 
+0.550571; inf; 1; 27.5117; 0.00387455; 0.286033; inf; 1; 27.5117; 0.00387455; 0.286033; 0.386517; 1; 0.672549; 
+.
+STOMP (stomp_chomp)
+0 common properties
+3 properties for each run
+average_waypoint_distance REAL
+solved BOOLEAN
+time REAL
+50 runs
+1.79769e+308; 0; 0.517497; 
+1.79769e+308; 0; 0.516359; 
+1.79769e+308; 0; 0.515702; 
+1.79769e+308; 0; 0.516001; 
+1.79769e+308; 0; 0.513702; 
+1.79769e+308; 0; 0.515472; 
+1.79769e+308; 0; 0.517639; 
+1.79769e+308; 0; 0.517028; 
+1.79769e+308; 0; 0.515998; 
+1.79769e+308; 0; 0.5187; 
+1.79769e+308; 0; 0.518394; 
+1.79769e+308; 0; 0.520077; 
+1.79769e+308; 0; 0.520229; 
+1.79769e+308; 0; 0.514552; 
+1.79769e+308; 0; 0.519897; 
+1.79769e+308; 0; 0.519156; 
+1.79769e+308; 0; 0.526473; 
+1.79769e+308; 0; 0.517058; 
+1.79769e+308; 0; 0.52; 
+1.79769e+308; 0; 0.518896; 
+1.79769e+308; 0; 0.521045; 
+1.79769e+308; 0; 0.517068; 
+1.79769e+308; 0; 0.519597; 
+1.79769e+308; 0; 0.516441; 
+1.79769e+308; 0; 0.517476; 
+1.79769e+308; 0; 0.51656; 
+1.79769e+308; 0; 0.513193; 
+1.79769e+308; 0; 0.517227; 
+1.79769e+308; 0; 0.518627; 
+1.79769e+308; 0; 0.539693; 
+1.79769e+308; 0; 0.55446; 
+1.79769e+308; 0; 0.533905; 
+1.79769e+308; 0; 0.528495; 
+1.79769e+308; 0; 0.521665; 
+1.79769e+308; 0; 0.518605; 
+1.79769e+308; 0; 0.518529; 
+1.79769e+308; 0; 0.522316; 
+1.79769e+308; 0; 0.517545; 
+1.79769e+308; 0; 0.52045; 
+1.79769e+308; 0; 0.51883; 
+1.79769e+308; 0; 0.520921; 
+1.79769e+308; 0; 0.521554; 
+1.79769e+308; 0; 0.522612; 
+1.79769e+308; 0; 0.517984; 
+1.79769e+308; 0; 0.521915; 
+1.79769e+308; 0; 0.523147; 
+1.79769e+308; 0; 0.560824; 
+1.79769e+308; 0; 0.526009; 
+1.79769e+308; 0; 0.524136; 
+1.79769e+308; 0; 0.555048; 
+.
