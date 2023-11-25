@@ -43,8 +43,13 @@
     <arg name="load_robot_description" value="$(arg load_robot_description)" />
   </include>
 
+<node name="print_text" pkg="rostopic" type="rostopic" 
+args="pub /msg std_msgs/String 'hello world******************'"
+output="screen"/>
+
+
   <!-- Planning Functionality -->
-  <include ns="move_group" file="$(find ur3e_moveit_config)/launch/planning_pipeline.launch.xml">
+  <include ns="move_group" file="$(find ur3e_moveit_config)/launch/planning_pipeline.launch">
     <arg name="pipeline" value="$(arg pipeline)" />
   </include>
 
