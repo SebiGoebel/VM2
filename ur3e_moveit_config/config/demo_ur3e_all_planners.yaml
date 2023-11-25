@@ -19,19 +19,30 @@ benchmark_config:
         queries: ClearPick1 # .*
         start_states: ClearStart1 # .*
     planning_pipelines:
-        - name: ompl
-          planners:
-            - RRTConnect
-            - PRM
-            # - RRTstar
-            - 
-        - name: chomp
-          planners:
-            - CHOMP
-        - name: stomp
-          planners:
-            - STOMP
-        #- name: ompl-chomp
+        #- name: ompl
         #  planners:
         #    - RRTConnect
+        #    - PRM
+        #    - RRTstar
+        #- name: chomp
+        #  planners:
         #    - CHOMP
+        #- name: stomp
+        #  planners:
+        #    - STOMP
+        #- name: ompl_chomp
+        #  planners:
+        #    - RRTConnect
+        #    - PRM
+        #    - RRTstar
+        #- name: ompl_stomp
+        #  planners:
+        #    - RRTConnect
+        #    - PRM
+        #    - RRTstar
+        - name: chomp_stomp
+          planners:
+            - CHOMP
+        - name: stomp_chomp
+          planners:
+            - STOMP
