@@ -1,0 +1,497 @@
+MoveIt version 1.1.13
+Experiment Start1_Pick1
+Running on sebi-Lenovo-Yoga-C940-15IRH
+Starting at 2023-11-24T11:55:52.240040
+<<<|
+Motion plan request:
+workspace_parameters: 
+  header: 
+    seq: 0
+    stamp: 0.000000000
+    frame_id: 
+  min_corner: 
+    x: -1
+    y: -1
+    z: -1
+  max_corner: 
+    x: 1
+    y: 1
+    z: 1
+start_state: 
+  joint_state: 
+    header: 
+      seq: 0
+      stamp: 0.000000000
+      frame_id: base_link
+    name[]
+      name[0]: shoulder_pan_joint
+      name[1]: shoulder_lift_joint
+      name[2]: elbow_joint
+      name[3]: wrist_1_joint
+      name[4]: wrist_2_joint
+      name[5]: wrist_3_joint
+    position[]
+      position[0]: -1.88761
+      position[1]: -1.68157
+      position[2]: -1.42889
+      position[3]: -1.51061
+      position[4]: -4.66973
+      position[5]: -3.0946
+    velocity[]
+    effort[]
+  multi_dof_joint_state: 
+    header: 
+      seq: 0
+      stamp: 0.000000000
+      frame_id: base_link
+    joint_names[]
+    transforms[]
+    twist[]
+    wrench[]
+  attached_collision_objects[]
+  is_diff: 0
+goal_constraints[]
+  goal_constraints[0]: 
+    name: 
+    joint_constraints[]
+      joint_constraints[0]: 
+            joint_name: shoulder_pan_joint
+        position: 1.73361
+        tolerance_above: 2.22045e-16
+        tolerance_below: 2.22045e-16
+        weight: 1
+      joint_constraints[1]: 
+            joint_name: shoulder_lift_joint
+        position: -1.21925
+        tolerance_above: 2.22045e-16
+        tolerance_below: 2.22045e-16
+        weight: 1
+      joint_constraints[2]: 
+            joint_name: elbow_joint
+        position: 1.36586
+        tolerance_above: 2.22045e-16
+        tolerance_below: 2.22045e-16
+        weight: 1
+      joint_constraints[3]: 
+            joint_name: wrist_1_joint
+        position: 4.55926
+        tolerance_above: 2.22045e-16
+        tolerance_below: 2.22045e-16
+        weight: 1
+      joint_constraints[4]: 
+            joint_name: wrist_2_joint
+        position: -1.57159
+        tolerance_above: 2.22045e-16
+        tolerance_below: 2.22045e-16
+        weight: 1
+      joint_constraints[5]: 
+            joint_name: wrist_3_joint
+        position: 3.30431
+        tolerance_above: 2.22045e-16
+        tolerance_below: 2.22045e-16
+        weight: 1
+    position_constraints[]
+    orientation_constraints[]
+    visibility_constraints[]
+path_constraints: 
+  name: 
+  joint_constraints[]
+  position_constraints[]
+  orientation_constraints[]
+  visibility_constraints[]
+trajectory_constraints: 
+  constraints[]
+reference_trajectories[]
+pipeline_id: 
+planner_id: 
+group_name: manipulator
+num_planning_attempts: 1
+allowed_planning_time: 10
+max_velocity_scaling_factor: 1
+max_acceleration_scaling_factor: 1
+cartesian_speed_limited_link: 
+max_cartesian_speed: 0
+
+Planning scene: 
+name: Kitchen
+robot_state: 
+  joint_state: 
+    header: 
+      seq: 0
+      stamp: 0.000000000
+      frame_id: base_link
+    name[]
+      name[0]: shoulder_pan_joint
+      name[1]: shoulder_lift_joint
+      name[2]: elbow_joint
+      name[3]: wrist_1_joint
+      name[4]: wrist_2_joint
+      name[5]: wrist_3_joint
+    position[]
+      position[0]: 0
+      position[1]: 0
+      position[2]: 0
+      position[3]: 0
+      position[4]: 0
+      position[5]: 0
+    velocity[]
+    effort[]
+  multi_dof_joint_state: 
+    header: 
+      seq: 0
+      stamp: 0.000000000
+      frame_id: base_link
+    joint_names[]
+    transforms[]
+    twist[]
+    wrench[]
+  attached_collision_objects[]
+  is_diff: 0
+robot_model_name: ur3e_robot
+fixed_frame_transforms[]
+  fixed_frame_transforms[0]: 
+    header: 
+      seq: 0
+      stamp: 0.000000000
+      frame_id: base_link
+    child_frame_id: base_link
+    transform: 
+      translation: 
+        x: 0
+        y: 0
+        z: 0
+      rotation: 
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+allowed_collision_matrix: 
+  entry_names[]
+    entry_names[0]: base_link_inertia
+    entry_names[1]: forearm_link
+    entry_names[2]: shoulder_link
+    entry_names[3]: upper_arm_link
+    entry_names[4]: wrist_1_link
+    entry_names[5]: wrist_2_link
+    entry_names[6]: wrist_3_link
+  entry_values[]
+    entry_values[0]: 
+        enabled[]
+        enabled[0]: 0
+        enabled[1]: 0
+        enabled[2]: 1
+        enabled[3]: 1
+        enabled[4]: 1
+        enabled[5]: 0
+        enabled[6]: 0
+    entry_values[1]: 
+        enabled[]
+        enabled[0]: 0
+        enabled[1]: 0
+        enabled[2]: 0
+        enabled[3]: 1
+        enabled[4]: 1
+        enabled[5]: 0
+        enabled[6]: 0
+    entry_values[2]: 
+        enabled[]
+        enabled[0]: 1
+        enabled[1]: 0
+        enabled[2]: 0
+        enabled[3]: 1
+        enabled[4]: 1
+        enabled[5]: 1
+        enabled[6]: 0
+    entry_values[3]: 
+        enabled[]
+        enabled[0]: 1
+        enabled[1]: 1
+        enabled[2]: 1
+        enabled[3]: 0
+        enabled[4]: 0
+        enabled[5]: 0
+        enabled[6]: 0
+    entry_values[4]: 
+        enabled[]
+        enabled[0]: 1
+        enabled[1]: 1
+        enabled[2]: 1
+        enabled[3]: 0
+        enabled[4]: 0
+        enabled[5]: 1
+        enabled[6]: 1
+    entry_values[5]: 
+        enabled[]
+        enabled[0]: 0
+        enabled[1]: 0
+        enabled[2]: 1
+        enabled[3]: 0
+        enabled[4]: 1
+        enabled[5]: 0
+        enabled[6]: 1
+    entry_values[6]: 
+        enabled[]
+        enabled[0]: 0
+        enabled[1]: 0
+        enabled[2]: 0
+        enabled[3]: 0
+        enabled[4]: 1
+        enabled[5]: 1
+        enabled[6]: 0
+  default_entry_names[]
+  default_entry_values[]
+link_padding[]
+  link_padding[0]: 
+    link_name: base_link_inertia
+    padding: 0
+  link_padding[1]: 
+    link_name: forearm_link
+    padding: 0
+  link_padding[2]: 
+    link_name: shoulder_link
+    padding: 0
+  link_padding[3]: 
+    link_name: upper_arm_link
+    padding: 0
+  link_padding[4]: 
+    link_name: wrist_1_link
+    padding: 0
+  link_padding[5]: 
+    link_name: wrist_2_link
+    padding: 0
+  link_padding[6]: 
+    link_name: wrist_3_link
+    padding: 0
+link_scale[]
+  link_scale[0]: 
+    link_name: base_link_inertia
+    scale: 1
+  link_scale[1]: 
+    link_name: forearm_link
+    scale: 1
+  link_scale[2]: 
+    link_name: shoulder_link
+    scale: 1
+  link_scale[3]: 
+    link_name: upper_arm_link
+    scale: 1
+  link_scale[4]: 
+    link_name: wrist_1_link
+    scale: 1
+  link_scale[5]: 
+    link_name: wrist_2_link
+    scale: 1
+  link_scale[6]: 
+    link_name: wrist_3_link
+    scale: 1
+object_colors[]
+world: 
+  collision_objects[]
+  octomap: 
+    header: 
+      seq: 0
+      stamp: 0.000000000
+      frame_id: base_link
+    origin: 
+      position: 
+        x: 0
+        y: 0
+        z: 0
+      orientation: 
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    octomap: 
+      header: 
+        seq: 0
+        stamp: 0.000000000
+        frame_id: 
+      binary: 0
+      id: 
+      resolution: 0
+      data[]
+is_diff: 0
+
+|>>>
+0 is the random seed
+10 seconds per run
+-1 MB per run
+50 runs per planner
+43.4031 seconds spent to collect the data
+0 enum types
+3 planners
+RRTConnect (chomp)
+0 common properties
+3 properties for each run
+average_waypoint_distance REAL
+solved BOOLEAN
+time REAL
+50 runs
+1.79769e+308; 0; 0.340911; 
+1.79769e+308; 0; 0.261809; 
+1.79769e+308; 0; 0.265467; 
+1.79769e+308; 0; 0.262514; 
+1.79769e+308; 0; 0.26103; 
+1.79769e+308; 0; 0.260297; 
+1.79769e+308; 0; 0.264083; 
+1.79769e+308; 0; 0.261764; 
+1.79769e+308; 0; 0.259869; 
+1.79769e+308; 0; 0.258972; 
+1.79769e+308; 0; 0.263897; 
+1.79769e+308; 0; 0.259499; 
+1.79769e+308; 0; 0.260248; 
+1.79769e+308; 0; 0.263718; 
+1.79769e+308; 0; 0.266691; 
+1.79769e+308; 0; 0.260158; 
+1.79769e+308; 0; 0.263181; 
+1.79769e+308; 0; 0.263677; 
+1.79769e+308; 0; 0.260776; 
+1.79769e+308; 0; 0.261311; 
+1.79769e+308; 0; 0.260451; 
+1.79769e+308; 0; 0.264887; 
+1.79769e+308; 0; 0.26203; 
+1.79769e+308; 0; 0.258975; 
+1.79769e+308; 0; 0.261642; 
+1.79769e+308; 0; 0.26565; 
+1.79769e+308; 0; 0.261507; 
+1.79769e+308; 0; 0.262422; 
+1.79769e+308; 0; 0.262819; 
+1.79769e+308; 0; 0.266915; 
+1.79769e+308; 0; 0.275686; 
+1.79769e+308; 0; 0.262472; 
+1.79769e+308; 0; 0.26742; 
+1.79769e+308; 0; 0.263127; 
+1.79769e+308; 0; 0.265026; 
+1.79769e+308; 0; 0.262758; 
+1.79769e+308; 0; 0.265481; 
+1.79769e+308; 0; 0.261827; 
+1.79769e+308; 0; 0.263939; 
+1.79769e+308; 0; 0.263661; 
+1.79769e+308; 0; 0.263466; 
+1.79769e+308; 0; 0.263052; 
+1.79769e+308; 0; 0.261877; 
+1.79769e+308; 0; 0.261963; 
+1.79769e+308; 0; 0.262974; 
+1.79769e+308; 0; 0.262528; 
+1.79769e+308; 0; 0.262674; 
+1.79769e+308; 0; 0.261449; 
+1.79769e+308; 0; 0.266021; 
+1.79769e+308; 0; 0.260414; 
+.
+PRM (chomp)
+0 common properties
+3 properties for each run
+average_waypoint_distance REAL
+solved BOOLEAN
+time REAL
+50 runs
+1.79769e+308; 0; 0.347034; 
+1.79769e+308; 0; 0.262283; 
+1.79769e+308; 0; 0.26254; 
+1.79769e+308; 0; 0.271042; 
+1.79769e+308; 0; 0.266407; 
+1.79769e+308; 0; 0.26106; 
+1.79769e+308; 0; 0.262023; 
+1.79769e+308; 0; 0.267399; 
+1.79769e+308; 0; 0.262612; 
+1.79769e+308; 0; 0.267692; 
+1.79769e+308; 0; 0.267363; 
+1.79769e+308; 0; 0.277809; 
+1.79769e+308; 0; 0.286118; 
+1.79769e+308; 0; 0.288602; 
+1.79769e+308; 0; 0.286343; 
+1.79769e+308; 0; 0.290527; 
+1.79769e+308; 0; 0.287346; 
+1.79769e+308; 0; 0.287405; 
+1.79769e+308; 0; 0.28767; 
+1.79769e+308; 0; 0.287473; 
+1.79769e+308; 0; 0.284915; 
+1.79769e+308; 0; 0.288344; 
+1.79769e+308; 0; 0.278969; 
+1.79769e+308; 0; 0.281956; 
+1.79769e+308; 0; 0.285503; 
+1.79769e+308; 0; 0.296907; 
+1.79769e+308; 0; 0.286984; 
+1.79769e+308; 0; 0.29232; 
+1.79769e+308; 0; 0.286972; 
+1.79769e+308; 0; 0.282112; 
+1.79769e+308; 0; 0.277221; 
+1.79769e+308; 0; 0.280906; 
+1.79769e+308; 0; 0.280026; 
+1.79769e+308; 0; 0.281821; 
+1.79769e+308; 0; 0.288819; 
+1.79769e+308; 0; 0.290797; 
+1.79769e+308; 0; 0.286781; 
+1.79769e+308; 0; 0.30074; 
+1.79769e+308; 0; 0.306049; 
+1.79769e+308; 0; 0.315998; 
+1.79769e+308; 0; 0.304737; 
+1.79769e+308; 0; 0.304821; 
+1.79769e+308; 0; 0.28671; 
+1.79769e+308; 0; 0.29973; 
+1.79769e+308; 0; 0.307024; 
+1.79769e+308; 0; 0.309528; 
+1.79769e+308; 0; 0.291556; 
+1.79769e+308; 0; 0.294572; 
+1.79769e+308; 0; 0.288232; 
+1.79769e+308; 0; 0.294854; 
+.
+RRTstar (chomp)
+0 common properties
+3 properties for each run
+average_waypoint_distance REAL
+solved BOOLEAN
+time REAL
+50 runs
+1.79769e+308; 0; 0.373956; 
+1.79769e+308; 0; 0.324556; 
+1.79769e+308; 0; 0.302624; 
+1.79769e+308; 0; 0.309552; 
+1.79769e+308; 0; 0.310041; 
+1.79769e+308; 0; 0.321005; 
+1.79769e+308; 0; 0.313605; 
+1.79769e+308; 0; 0.284977; 
+1.79769e+308; 0; 0.289318; 
+1.79769e+308; 0; 0.279224; 
+1.79769e+308; 0; 0.280056; 
+1.79769e+308; 0; 0.282408; 
+1.79769e+308; 0; 0.281571; 
+1.79769e+308; 0; 0.279587; 
+1.79769e+308; 0; 0.303552; 
+1.79769e+308; 0; 0.289706; 
+1.79769e+308; 0; 0.28004; 
+1.79769e+308; 0; 0.280138; 
+1.79769e+308; 0; 0.290899; 
+1.79769e+308; 0; 0.284964; 
+1.79769e+308; 0; 0.287142; 
+1.79769e+308; 0; 0.283714; 
+1.79769e+308; 0; 0.284662; 
+1.79769e+308; 0; 0.284589; 
+1.79769e+308; 0; 0.283281; 
+1.79769e+308; 0; 0.287957; 
+1.79769e+308; 0; 0.284208; 
+1.79769e+308; 0; 0.285972; 
+1.79769e+308; 0; 0.283513; 
+1.79769e+308; 0; 0.291114; 
+1.79769e+308; 0; 0.29852; 
+1.79769e+308; 0; 0.292328; 
+1.79769e+308; 0; 0.290815; 
+1.79769e+308; 0; 0.297496; 
+1.79769e+308; 0; 0.293182; 
+1.79769e+308; 0; 0.300598; 
+1.79769e+308; 0; 0.29421; 
+1.79769e+308; 0; 0.292959; 
+1.79769e+308; 0; 0.295619; 
+1.79769e+308; 0; 0.292137; 
+1.79769e+308; 0; 0.291312; 
+1.79769e+308; 0; 0.289214; 
+1.79769e+308; 0; 0.293858; 
+1.79769e+308; 0; 0.290241; 
+1.79769e+308; 0; 0.286254; 
+1.79769e+308; 0; 0.280658; 
+1.79769e+308; 0; 0.297331; 
+1.79769e+308; 0; 0.290835; 
+1.79769e+308; 0; 0.292369; 
+1.79769e+308; 0; 0.293999; 
+.
