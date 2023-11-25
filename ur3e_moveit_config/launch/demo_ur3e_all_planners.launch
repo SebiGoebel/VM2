@@ -24,20 +24,20 @@
       <arg name="pipeline" value="stomp" />
     </include>
 
-    <include ns="ompl-chomp" file="$(find ur3e_moveit_config)/launch/planning_pipeline.launch">
-      <arg name="pipeline" value="ompl-chomp" />
+    <include ns="ompl_chomp" file="$(find ur3e_moveit_config)/launch/planning_pipeline.launch">
+      <arg name="pipeline" value="ompl_chomp" />
     </include>
 
-    <include ns="ompl-stomp" file="$(find ur3e_moveit_config)/launch/planning_pipeline.launch">
-      <arg name="pipeline" value="ompl-stomp" />
+    <include ns="ompl_stomp" file="$(find ur3e_moveit_config)/launch/planning_pipeline.launch">
+      <arg name="pipeline" value="ompl_stomp" />
     </include>
 
-    <include ns="stomp-chomp" file="$(find ur3e_moveit_config)/launch/planning_pipeline.launch">
-      <arg name="pipeline" value="stomp-chomp" />
+    <include ns="stomp_chomp" file="$(find ur3e_moveit_config)/launch/planning_pipeline.launch">
+      <arg name="pipeline" value="stomp_chomp" />
     </include>
 
-    <include ns="chomp-stomp" file="$(find ur3e_moveit_config)/launch/planning_pipeline.launch">
-      <arg name="pipeline" value="chomp-stomp" />
+    <include ns="chomp_stomp" file="$(find ur3e_moveit_config)/launch/planning_pipeline.launch">
+      <arg name="pipeline" value="chomp_stomp" />
     </include>
   </group>
 
