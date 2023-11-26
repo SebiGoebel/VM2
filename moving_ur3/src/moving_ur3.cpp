@@ -14,9 +14,6 @@
 #include <moveit/planning_scene/planning_scene.h>
 #include <moveit/trajectory_processing/iterative_time_parameterization.h>
 
-// euler 2 quaternions
-#include <tf2/LinearMath/Quaternion.h>
-
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "moving_ur3");

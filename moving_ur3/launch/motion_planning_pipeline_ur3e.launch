@@ -3,9 +3,8 @@
   <arg name="debug" default="false" />
   <arg unless="$(arg debug)" name="launch_prefix" value="" />
   <arg     if="$(arg debug)" name="launch_prefix" value="gdb --ex run --args" />
-  <arg name="planning_plugin" value="ompl_interface/OMPLPlanner" />
-  <!--<arg name="planning_plugin" value="chomp_interface/CHOMPPlanner" />-->
-  <!--<arg name="planning_plugin" value="stomp_moveit/StompPlannerManager" />-->
+  <!--<arg name="planning_plugin" value="ompl_interface/OMPLPlanner" />-->
+  <arg name="planning plugin" value="chomp_interface/CHOMPPlanner" />
 
   <arg name="planning_adapters" value="default_planner_request_adapters/AddTimeParameterization
   		       default_planner_request_adapters/FixWorkspaceBounds

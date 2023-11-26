@@ -26,9 +26,6 @@ find_package(catkin REQUIRED COMPONENTS
   tf2_ros
   tf2_eigen
   tf2_geometry_msgs
-  message_generation
-  message_runtime
-  Eigen3
 )
 
 ## System dependencies are found with CMake's conventions
@@ -232,6 +229,12 @@ target_link_libraries(realistic_environment ${catkin_LIBRARIES})
 
 add_executable(addRealisticEnvironment src/addRealisticEnvironment.cpp)
 target_link_libraries(addRealisticEnvironment ${catkin_LIBRARIES})
+
+add_executable(realistic_environment_cylinders src/realistic_environment_cylinders.cpp)
+target_link_libraries(realistic_environment_cylinders ${catkin_LIBRARIES})
+
+add_executable(addRealisticEnvironment_cylinders src/addRealisticEnvironment_cylinders.cpp)
+target_link_libraries(addRealisticEnvironment_cylinders ${catkin_LIBRARIES})
 
 add_executable(motion_planning_pipeline_ur3e src/motion_planning_pipeline_ur3e.cpp)
 target_link_libraries(motion_planning_pipeline_ur3e ${catkin_LIBRARIES} ${Boost_LIBRARIES})

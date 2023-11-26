@@ -66,8 +66,9 @@ int main(int argc, char **argv)
     //
     // .. _RobotModelLoader:
     //     http://docs.ros.org/noetic/api/moveit_ros_planning/html/classrobot__model__loader_1_1RobotModelLoader.html
-    robot_model_loader::RobotModelLoaderPtr robot_model_loader(new robot_model_loader::RobotModelLoader("robot_description"));
-    
+    robot_model_loader::RobotModelLoaderPtr robot_model_loader(
+        new robot_model_loader::RobotModelLoader("robot_description"));
+
     // Using the RobotModelLoader, we can construct a planing scene monitor that
     // will create a planning scene, monitors planning scene diffs, and apply the diffs to it's
     // internal planning scene. We then call startSceneMonitor, startWorldGeometryMonitor and
@@ -97,8 +98,7 @@ int main(int argc, char **argv)
 
     // We can now setup the PlanningPipeline object, which will use the ROS parameter server
     // to determine the set of request adapters and the planning plugin to use
-    planning_pipeline::PlanningPipelinePtr planning_pipeline(
-        new planning_pipeline::PlanningPipeline(robot_model, node_handle, "planning_plugin", "request_adapters"));
+    planning_pipeline::PlanningPipelinePtr planning_pipeline(new planning_pipeline::PlanningPipeline(robot_model, node_handle, "planning_plugin", "request_adapters"));
 
     // Visualization
     // ^^^^^^^^^^^^^
@@ -138,6 +138,8 @@ int main(int argc, char **argv)
     std::vector<double> tolerance_pose(3, 0.01);
     std::vector<double> tolerance_angle(3, 0.01);
 
+    std::cout << "test" << std::endl;
+
     // We will create the request as a constraint using a helper function available
     // from the `kinematic_constraints`_package.
     //
@@ -146,14 +148,13 @@ int main(int argc, char **argv)
     req.group_name = "manipulator";
     moveit_msgs::Constraints pose_goal = kinematic_constraints::constructGoalConstraints("tool0", pose, tolerance_pose, tolerance_angle);
     req.goal_constraints.push_back(pose_goal);
-    
 
     // Before planning, we will need a Read Only lock on the planning scene so that it does not modify the world
     // representation while planning
     {
         planning_scene_monitor::LockedPlanningSceneRO lscene(psm);
         // Now, call the pipeline and check whether planning was successful. 
-        planning_pipeline->generatePlan(lscene, req, res); // <-- da liegt das Problem !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        planning_pipeline->generatePlan(lscene, req, res);
     }
     // Now, call the pipeline and check whether planning was successful. 
     // Check that the planning was successful 
@@ -162,7 +163,7 @@ int main(int argc, char **argv)
         ROS_ERROR("Could not compute plan successfully");
         return 0;
     }
-    
+
     // Visualize the result
     // ^^^^^^^^^^^^^^^^^^^^
     ros::Publisher display_publisher = node_handle.advertise<moveit_msgs::DisplayTrajectory>("/move_group/display_planned_path", 1, true);
@@ -179,7 +180,7 @@ int main(int argc, char **argv)
     visual_tools.publishTrajectoryLine(display_trajectory.trajectory.back(), joint_model_group);
     visual_tools.trigger();
 
-    // Wait for user input 
+    // Wait for user input
     visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to continue the demo");
 /*
     // Joint Space Goals
