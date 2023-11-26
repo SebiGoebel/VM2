@@ -9,15 +9,15 @@ benchmark_config:
     warehouse:
         host: 127.0.0.1
         port: 33829
-        scene_name: Clearspace1     # Required
+        scene_name: RealScene1     # Required
     parameters:
-        name: ClearspacePick1
+        name: RealScenePick1
         runs: 100
         group: manipulator      # Required
-        timeout: 10.0
+        timeout: 20.0
         output_directory: /home/sebi/benchmarks/
-        queries: ClearPick1 # .*
-        start_states: ClearStart1 # .*
+        queries: RealPick1 # .*
+        start_states: RealStart1 # .*
     planning_pipelines:
         - name: ompl
           planners:
@@ -26,8 +26,8 @@ benchmark_config:
             - RRTstar
             - PRM
             - PRMstar
-            - LazyPRM
-            - LazyPRMstar
+            #- LazyPRM
+            #- LazyPRMstar
         - name: chomp
           planners:
             - CHOMP
@@ -41,8 +41,8 @@ benchmark_config:
             - RRTstar
             - PRM
             - PRMstar
-            - LazyPRM
-            - LazyPRMstar
+            #- LazyPRM
+            #- LazyPRMstar
         - name: ompl_stomp
           planners:
             - RRTConnect
@@ -50,8 +50,8 @@ benchmark_config:
             - RRTstar
             - PRM
             - PRMstar
-            - LazyPRM
-            - LazyPRMstar
+            #- LazyPRM
+            #- LazyPRMstar
         - name: chomp_stomp
           planners:
             - CHOMP
