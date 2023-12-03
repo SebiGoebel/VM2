@@ -12,7 +12,7 @@ benchmark_config:
         scene_name: RealScene2cylinder     # Required
     parameters:
         name: RealScenePick2
-        runs: 3
+        runs: 100
         group: manipulator      # Required
         timeout: 20.0
         output_directory: /home/sebi/benchmarks/
@@ -26,8 +26,8 @@ benchmark_config:
             - RRTstar
             - PRM
             - PRMstar
-            #- LazyPRM
-            #- LazyPRMstar
+            - LazyPRM
+            - LazyPRMstar
         - name: chomp
           planners:
             - CHOMP
@@ -41,8 +41,8 @@ benchmark_config:
             - RRTstar
             - PRM
             - PRMstar
-            #- LazyPRM
-            #- LazyPRMstar
+            - LazyPRM
+            - LazyPRMstar
         - name: ompl_stomp
           planners:
             - RRTConnect
@@ -50,8 +50,8 @@ benchmark_config:
             - RRTstar
             - PRM
             - PRMstar
-            #- LazyPRM
-            #- LazyPRMstar
+            - LazyPRM
+            - LazyPRMstar
         - name: chomp_stomp
           planners:
             - CHOMP

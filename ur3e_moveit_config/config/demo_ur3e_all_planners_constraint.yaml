@@ -9,15 +9,15 @@ benchmark_config:
     warehouse:
         host: 127.0.0.1
         port: 33829
-        scene_name: RealScene1     # Required
+        scene_name: RealSceneConstraint     # Required
     parameters:
-        name: RealScenePick1
+        name: ConstraintScenePick3
         runs: 100
         group: manipulator      # Required
         timeout: 20.0
         output_directory: /home/sebi/benchmarks/
-        queries: RealPick1 # .*
-        start_states: RealStart1 # .*
+        queries: ConstraintPick3 # .*
+        start_states: ConstraintStart3 # .*
     planning_pipelines:
         - name: ompl
           planners:
