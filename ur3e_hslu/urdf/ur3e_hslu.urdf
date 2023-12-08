@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="ur3e_hslu">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-1.3743E-05 0.056888 0.049079"
+        rpy="0 0 0" />
+      <mass
+        value="0.50618" />
+      <inertia
+        ixx="0.0010657"
+        ixy="8.0314E-08"
+        ixz="-4.5662E-07"
+        iyy="0.00059278"
+        iyz="5.3152E-06"
+        izz="0.0011483" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ur3e_hslu/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.64706 0.51765 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ur3e_hslu/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="link1">
+    <inertial>
+      <origin
+        xyz="-3.4798E-08 -0.0095496 0.056356"
+        rpy="0 0 0" />
+      <mass
+        value="0.86046" />
+      <inertia
+        ixx="0.0014598"
+        ixy="4.4924E-09"
+        ixz="-6.3285E-09"
+        iyy="0.0012461"
+        iyz="3.3502E-05"
+        izz="0.0011308" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ur3e_hslu/meshes/link1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ur3e_hslu/meshes/link1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint1"
+    type="revolute">
+    <origin
+      xyz="0 0 0.09415"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="link1" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-6.283"
+      upper="6.283"
+      effort="56"
+      velocity="3.1415" />
+  </joint>
+  <link
+    name="link2">
+    <inertial>
+      <origin
+        xyz="2.5154E-06 -0.10365 -0.05828"
+        rpy="0 0 0" />
+      <mass
+        value="1.8626" />
+      <inertia
+        ixx="0.020245"
+        ixy="9.3375E-07"
+        ixz="1.3352E-07"
+        iyy="0.0021333"
+        iyz="-0.00038612"
+        izz="0.019698" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ur3e_hslu/meshes/link2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.89804 0.89804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ur3e_hslu/meshes/link2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint2"
+    type="revolute">
+    <origin
+      xyz="0 -0.061905 0.0577"
+      rpy="-1.5708 0 0" />
+    <parent
+      link="link1" />
+    <child
+      link="link2" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-6.283"
+      upper="6.283"
+      effort="56"
+      velocity="3.1415" />
+  </joint>
+  <link
+    name="link3">
+    <inertial>
+      <origin
+        xyz="8.1848E-07 -0.11337 0.042041"
+        rpy="0 0 0" />
+      <mass
+        value="0.88881" />
+      <inertia
+        ixx="0.0067787"
+        ixy="-1.268E-07"
+        ixz="3.7439E-08"
+        iyy="0.0006017"
+        iyz="0.00047432"
+        izz="0.0066239" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ur3e_hslu/meshes/link3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ur3e_hslu/meshes/link3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint3"
+    type="revolute">
+    <origin
+      xyz="0 -0.24355 -0.011845"
+      rpy="0 0 0" />
+    <parent
+      link="link2" />
+    <child
+      link="link3" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-3.1415"
+      upper="3.1415"
+      effort="28"
+      velocity="3.1415" />
+  </joint>
+  <link
+    name="link4">
+    <inertial>
+      <origin
+        xyz="3.9231E-05 -3.4311E-08 -0.047231"
+        rpy="0 0 0" />
+      <mass
+        value="0.37503" />
+      <inertia
+        ixx="0.00031631"
+        ixy="2.5814E-09"
+        ixz="2.3861E-06"
+        iyy="0.00041174"
+        iyz="-2.67E-09"
+        izz="0.00028818" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ur3e_hslu/meshes/link4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ur3e_hslu/meshes/link4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint4"
+    type="revolute">
+    <origin
+      xyz="0 -0.2132 0.0024267"
+      rpy="0 0 -1.5708" />
+    <parent
+      link="link3" />
+    <child
+      link="link4" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-6.283"
+      upper="6.283"
+      effort="12"
+      velocity="6.283" />
+  </joint>
+  <link
+    name="link5">
+    <inertial>
+      <origin
+        xyz="1.9813E-07 3.0446E-05 0.03716"
+        rpy="0 0 0" />
+      <mass
+        value="0.31687" />
+      <inertia
+        ixx="0.00029035"
+        ixy="-2.031E-11"
+        ixz="5.8637E-10"
+        iyy="0.00019479"
+        iyz="-2.336E-06"
+        izz="0.00025946" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ur3e_hslu/meshes/link5.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ur3e_hslu/meshes/link5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint5"
+    type="revolute">
+    <origin
+      xyz="0.0429 0 -0.059727"
+      rpy="-1.5708 0 -1.5708" />
+    <parent
+      link="link4" />
+    <child
+      link="link5" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-6.283"
+      upper="6.283"
+      effort="12"
+      velocity="6.283" />
+  </joint>
+  <link
+    name="link6">
+    <inertial>
+      <origin
+        xyz="1.0603E-10 0.00015383 0.025352"
+        rpy="0 0 0" />
+      <mass
+        value="0.14596" />
+      <inertia
+        ixx="6.3031E-05"
+        ixy="1.0429E-12"
+        ixz="-4.1341E-13"
+        iyy="6.3595E-05"
+        iyz="3.6155E-08"
+        izz="7.2803E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ur3e_hslu/meshes/link6.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.69804 0.69804 0.69804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ur3e_hslu/meshes/link6.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint6"
+    type="revolute">
+    <origin
+      xyz="0 0.0921 0.04245"
+      rpy="-1.5708 0 -3.1416" />
+    <parent
+      link="link5" />
+    <child
+      link="link6" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-6.283"
+      upper="6.283"
+      effort="12"
+      velocity="6.283" />
+  </joint>
+</robot>
