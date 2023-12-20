@@ -195,6 +195,7 @@ int main(int argc, char *argv[])
 
     move_group_interface.setPathConstraints(box_constraints);
     move_group_interface.setPlanningTime(10.0);
+    std::cout << "jetzt ist die box eingeschalten" << std::endl;
 
     // ---------------------------- Moving to start pose ----------------------------
 

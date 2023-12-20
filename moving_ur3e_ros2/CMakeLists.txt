@@ -10,6 +10,7 @@ find_package(ament_cmake REQUIRED)
 find_package(moveit_ros_planning_interface REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(moveit_visual_tools REQUIRED)
+find_package(geometric_shapes REQUIRED)
 
 # --- moving ur3e to a given pose ---
 add_executable(moving_ur3e src/moving_ur3e.cpp)
@@ -60,21 +61,133 @@ ament_target_dependencies(
 install(TARGETS moving_ur3e_box_constrained
   DESTINATION lib/${PROJECT_NAME})
 
-# --- moving ur3e to a given joint goal with a box and constrained workarea ---
-add_executable(moving_ur3e_joint_goal src/moving_ur3e_joint_goal.cpp)
-target_include_directories(moving_ur3e_joint_goal PUBLIC
+# --- moving ur3e to a given pose with a box and constrained workarea ---
+add_executable(moving_ur3e_box_constrained_cylinder src/moving_ur3e_box_constrained_cylinder.cpp)
+target_include_directories(moving_ur3e_box_constrained_cylinder PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
-target_compile_features(moving_ur3e_joint_goal PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+target_compile_features(moving_ur3e_box_constrained_cylinder PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 ament_target_dependencies(
-  moving_ur3e_joint_goal
+  moving_ur3e_box_constrained_cylinder
   "moveit_ros_planning_interface"
   "moveit_visual_tools"
   "rclcpp"
 )
   
-install(TARGETS moving_ur3e_joint_goal
+install(TARGETS moving_ur3e_box_constrained_cylinder
   DESTINATION lib/${PROJECT_NAME})
+
+# --- moving ur3e to a given pose with a box and constrained workarea with stl ---
+add_executable(moving_ur3e_box_constrained_stl src/moving_ur3e_box_constrained_stl.cpp)
+target_include_directories(moving_ur3e_box_constrained_stl PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+target_compile_features(moving_ur3e_box_constrained_stl PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+ament_target_dependencies(
+  moving_ur3e_box_constrained_stl
+  "moveit_ros_planning_interface"
+  "moveit_visual_tools"
+  "rclcpp"
+)
+  
+install(TARGETS moving_ur3e_box_constrained_stl
+  DESTINATION lib/${PROJECT_NAME})
+
+# --- moving ur3e to a given pose with a box and constrained workarea with tube boxes ---
+add_executable(moving_ur3e_box_constrained_tube src/moving_ur3e_box_constrained_tube.cpp)
+target_include_directories(moving_ur3e_box_constrained_tube PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+target_compile_features(moving_ur3e_box_constrained_tube PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+ament_target_dependencies(
+  moving_ur3e_box_constrained_tube
+  "moveit_ros_planning_interface"
+  "moveit_visual_tools"
+  "rclcpp"
+)
+  
+install(TARGETS moving_ur3e_box_constrained_tube
+  DESTINATION lib/${PROJECT_NAME})
+
+# --- moving ur3e to a given pose with a box and constrained workarea with curved tube boxes ---
+add_executable(moving_ur3e_box_constrained_curvedTube src/moving_ur3e_box_constrained_curvedTube.cpp)
+target_include_directories(moving_ur3e_box_constrained_curvedTube PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+target_compile_features(moving_ur3e_box_constrained_curvedTube PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+ament_target_dependencies(
+  moving_ur3e_box_constrained_curvedTube
+  "moveit_ros_planning_interface"
+  "moveit_visual_tools"
+  "rclcpp"
+)
+  
+install(TARGETS moving_ur3e_box_constrained_curvedTube
+  DESTINATION lib/${PROJECT_NAME})
+
+# --- moving ur3e to a given pose with a box and constrained workarea with plane ---
+add_executable(moving_ur3e_box_constrained_plane src/moving_ur3e_box_constrained_plane.cpp)
+target_include_directories(moving_ur3e_box_constrained_plane PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+target_compile_features(moving_ur3e_box_constrained_plane PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+ament_target_dependencies(
+  moving_ur3e_box_constrained_plane
+  "moveit_ros_planning_interface"
+  "moveit_visual_tools"
+  "rclcpp"
+)
+  
+install(TARGETS moving_ur3e_box_constrained_plane
+  DESTINATION lib/${PROJECT_NAME})
+
+# --- moving ur3e to a given pose with a box and constrained workarea with box ---
+add_executable(moving_ur3e_box_constrained_realEnvironment src/moving_ur3e_box_constrained_realEnvironment.cpp)
+target_include_directories(moving_ur3e_box_constrained_realEnvironment PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+target_compile_features(moving_ur3e_box_constrained_realEnvironment PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+ament_target_dependencies(
+  moving_ur3e_box_constrained_realEnvironment
+  "moveit_ros_planning_interface"
+  "moveit_visual_tools"
+  "rclcpp"
+)
+  
+install(TARGETS moving_ur3e_box_constrained_realEnvironment
+  DESTINATION lib/${PROJECT_NAME})
+
+# --- moving ur3e to a given pose in a real environment without additional constraints ---
+add_executable(moving_ur3e_realEnvironment src/moving_ur3e_realEnvironment.cpp)
+target_include_directories(moving_ur3e_realEnvironment PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+target_compile_features(moving_ur3e_realEnvironment PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+ament_target_dependencies(
+  moving_ur3e_realEnvironment
+  "moveit_ros_planning_interface"
+  "moveit_visual_tools"
+  "rclcpp"
+)
+  
+install(TARGETS moving_ur3e_realEnvironment
+  DESTINATION lib/${PROJECT_NAME})
+
+# --- moving ur3e to a given joint goal with a box and constrained workarea ---
+#add_executable(moving_ur3e_joint_goal src/moving_ur3e_joint_goal.cpp)
+#target_include_directories(moving_ur3e_joint_goal PUBLIC
+#  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+#  $<INSTALL_INTERFACE:include>)
+#target_compile_features(moving_ur3e_joint_goal PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+#ament_target_dependencies(
+#  moving_ur3e_joint_goal
+#  "moveit_ros_planning_interface"
+#  "moveit_visual_tools"
+#  "rclcpp"
+#)
+  
+#install(TARGETS moving_ur3e_joint_goal
+#  DESTINATION lib/${PROJECT_NAME})
 
 # --- motion planning pipeline ur3e  ---
 add_executable(motion_planning_pipeline_ur3e src/motion_planning_pipeline_ur3e.cpp)
@@ -133,6 +246,8 @@ endif()
 
 install(DIRECTORY
   launch
+  collisionObjects
+  config
   DESTINATION share/${PROJECT_NAME}
 )
 
